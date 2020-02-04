@@ -18,6 +18,8 @@ public class StartSim : MonoBehaviour {
     private GameObject motorwayManager;
     private Parameters parameters;
 
+    public GameObject StartUI;
+
     public void StartSimulation() {
         // Instantiates the MotorwayManager object into the scene
         DeleteAndInstantiate(motorwayManagerPrefab, "MotorwayManager");
@@ -90,6 +92,8 @@ public class StartSim : MonoBehaviour {
 
         parameters.politeness = politeness.value;
 
+        // Disables the start UI
+        StartUI.SetActive(false);
     }
 
     private static void DeleteAndInstantiate(GameObject prefab, string ObjectTag) {
