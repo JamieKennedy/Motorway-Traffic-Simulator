@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class StartSim : MonoBehaviour {
     public TMP_InputField duration;
     public TMP_Dropdown durationUnits;
@@ -94,6 +95,7 @@ public class StartSim : MonoBehaviour {
 
         // Disables the start UI
         StartUI.SetActive(false);
+        
     }
 
     private static void DeleteAndInstantiate(GameObject prefab, string ObjectTag) {
