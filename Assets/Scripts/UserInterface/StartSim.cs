@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -97,8 +98,9 @@ public class StartSim : MonoBehaviour {
         parameters.politeness = politeness.value;
 
         // Disables the start UI
-        StartUI.SetActive(false);
-        
+        //StartUI.SetActive(false);
+        SceneManager.LoadScene("MainSim");
+
     }
 
     private static void DeleteAndInstantiate(GameObject prefab, string ObjectTag) {
