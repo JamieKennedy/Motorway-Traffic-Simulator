@@ -21,6 +21,9 @@ public class StartSim : MonoBehaviour {
 
     public GameObject StartUI;
 
+    [SerializeField] private GameObject errorBox;
+    [SerializeField] private TMP_Text[] messages = new TMP_Text[4];
+
     public void StartSimulation() {
         // Instantiates the MotorwayManager object into the scene
         DeleteAndInstantiate(motorwayManagerPrefab, "MotorwayManager");
@@ -39,8 +42,8 @@ public class StartSim : MonoBehaviour {
                     try {
                         parameters.duration = float.Parse(duration.text);
                         break;
-                    } catch(Exception e) {
-                        ErrorHandler(e);
+                    } catch {
+                        ErrorHandler(0);
                         Destroy(motorwayManager);
                         return;
                     }
@@ -48,8 +51,8 @@ public class StartSim : MonoBehaviour {
                     try {
                         parameters.duration = float.Parse(duration.text) * 60f;
                         break;
-                    } catch(Exception e) {
-                        ErrorHandler(e);
+                    } catch {
+                        ErrorHandler(0);
                         Destroy(motorwayManager);
                         return;
                     }
@@ -57,8 +60,8 @@ public class StartSim : MonoBehaviour {
                     try {
                         parameters.duration = float.Parse(duration.text) * 600f;
                         break;
-                    } catch(Exception e) {
-                        ErrorHandler(e);
+                    } catch {
+                        ErrorHandler(0);
                         Destroy(motorwayManager);
                         return;
                     }
@@ -68,25 +71,25 @@ public class StartSim : MonoBehaviour {
         }
 
         try {
-            parameters.lanesNum = float.Parse(lanesNum.text);
-        } catch (Exception e) {
-            ErrorHandler(e);
+            parameters.lanesNum = int.Parse(lanesNum.text);
+        } catch {
+            ErrorHandler(1);
             Destroy(motorwayManager);
             return;
         }
         
         try {
             parameters.speedLimit = float.Parse(speedLimit.text);
-        } catch (Exception e) {
-            ErrorHandler(e);
+        } catch {
+            ErrorHandler(2);
             Destroy(motorwayManager);
             return;
         }
         
         try {
             parameters.arrivalRate = float.Parse(arrivalRate.text);
-        } catch (Exception e) {
-            ErrorHandler(e);
+        } catch {
+            ErrorHandler(3);
             Destroy(motorwayManager);
             return;
         }
@@ -105,7 +108,13 @@ public class StartSim : MonoBehaviour {
         Instantiate(prefab, Vector3.zero, Quaternion.identity);
     }
 
-    private static void ErrorHandler(Exception e) {
-        Debug.Log(e);
+    private void ErrorHandler(int errorIndex) {
+        // disables all error messages
+        foreach (var message in messages) {
+            message.gameObject.SetActive(false);
+        }
+        // enables error message box and the correct error message
+        errorBox.SetActive(true);
+        messages[errorIndex].gameObject.SetActive(true);
     }
 }
