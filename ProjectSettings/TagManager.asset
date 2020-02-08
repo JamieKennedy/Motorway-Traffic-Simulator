@@ -6,6 +6,8 @@ TagManager:
   tags:
   - MotorwayManager
   - StartUI
+  - MotorwaySetup
+  - MotorwayBackground
   layers:
   - Default
   - TransparentFX
@@ -15,8 +17,8 @@ TagManager:
   - UI
   - 
   - 
+  - Sprites
   - Background
-  - 
   - 
   - 
   - 
@@ -42,4 +44,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1595537789
+    locked: 0
+  - name: Sprites
+    uniqueID: 2704911831
     locked: 0

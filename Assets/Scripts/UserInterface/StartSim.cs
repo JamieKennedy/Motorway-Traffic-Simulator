@@ -13,26 +13,23 @@ public class StartSim : MonoBehaviour {
     private string durationUnitsText;
     public TMP_InputField lanesNum;
     public TMP_InputField speedLimit;
+    public TMP_Dropdown speedLimitUnits;
     public TMP_InputField arrivalRate;
     public Slider politeness;
     
-    public GameObject motorwayManagerPrefab;
-    private GameObject motorwayManager;
+    [SerializeField] private GameObject motorwaySetupPrefab;
+    private GameObject motorwaySetup;
     private Parameters parameters;
-
-    public GameObject StartUI;
 
     [SerializeField] private GameObject errorBox;
     [SerializeField] private TMP_Text[] messages = new TMP_Text[4];
 
     public void StartSimulation() {
-        // Instantiates the MotorwayManager object into the scene
-        DeleteAndInstantiate(motorwayManagerPrefab, "MotorwayManager");
+        DeleteAndInstantiate(motorwaySetupPrefab, "MotorwaySetup");
+
+        motorwaySetup = GameObject.FindWithTag("MotorwaySetup");
         
-        // Gets the reference to the now MotorwayManager object in the scene
-        // as well as its parameters component
-        motorwayManager = GameObject.FindWithTag("MotorwayManager");
-        parameters = motorwayManager.GetComponent<Parameters>();
+        parameters = motorwaySetup.GetComponent<Parameters>();
         
         // Assigns the parameters values from the start UI to parameters component
         if (!duration.text.Equals("")) {
@@ -45,7 +42,7 @@ public class StartSim : MonoBehaviour {
                         break;
                     } catch {
                         ErrorHandler(0);
-                        Destroy(motorwayManager);
+                        Destroy(motorwaySetup);
                         return;
                     }
                 case "Minutes":
@@ -54,16 +51,16 @@ public class StartSim : MonoBehaviour {
                         break;
                     } catch {
                         ErrorHandler(0);
-                        Destroy(motorwayManager);
+                        Destroy(motorwaySetup);
                         return;
                     }
                 case "Hours":
                     try {
-                        parameters.duration = float.Parse(duration.text) * 600f;
+                        parameters.duration = float.Parse(duration.text) * 3600f;
                         break;
                     } catch {
                         ErrorHandler(0);
-                        Destroy(motorwayManager);
+                        Destroy(motorwaySetup);
                         return;
                     }
             }
@@ -75,15 +72,19 @@ public class StartSim : MonoBehaviour {
             parameters.lanesNum = int.Parse(lanesNum.text);
         } catch {
             ErrorHandler(1);
-            Destroy(motorwayManager);
+            Destroy(motorwaySetup);
             return;
         }
-        
+
         try {
-            parameters.speedLimit = float.Parse(speedLimit.text);
+            if (speedLimitUnits.options[speedLimitUnits.value].text.Equals("Mph")) {
+                parameters.speedLimit = MPHtoKPH(float.Parse(speedLimit.text));
+            } else {
+                parameters.speedLimit = float.Parse(speedLimit.text);
+            }
         } catch {
             ErrorHandler(2);
-            Destroy(motorwayManager);
+            Destroy(motorwaySetup);
             return;
         }
         
@@ -91,16 +92,14 @@ public class StartSim : MonoBehaviour {
             parameters.arrivalRate = float.Parse(arrivalRate.text);
         } catch {
             ErrorHandler(3);
-            Destroy(motorwayManager);
+            Destroy(motorwaySetup);
             return;
         }
 
         parameters.politeness = politeness.value;
 
-        // Disables the start UI
-        //StartUI.SetActive(false);
+        
         SceneManager.LoadScene("MainSim");
-
     }
 
     private static void DeleteAndInstantiate(GameObject prefab, string ObjectTag) {
@@ -118,5 +117,9 @@ public class StartSim : MonoBehaviour {
         // enables error message box and the correct error message
         errorBox.SetActive(true);
         messages[errorIndex].gameObject.SetActive(true);
+    }
+
+    private static float MPHtoKPH(float mph) {
+        return mph * 1.609f;
     }
 }

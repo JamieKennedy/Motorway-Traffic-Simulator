@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4793814199787654526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4147975992903149163}
+  - component: {fileID: 3696936496558582210}
+  - component: {fileID: 3977025578533762882}
+  - component: {fileID: 389799851846017712}
+  m_Layer: 0
+  m_Name: MotorwaySetup
+  m_TagString: MotorwaySetup
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4147975992903149163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793814199787654526}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3696936496558582210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793814199787654526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14779c4d033fa9428b6a8e8f7b81706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3977025578533762882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793814199787654526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a3ec93c5a6994fa487543dcfe2bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0
+  lanesNum: 0
+  speedLimit: 0
+  arrivalRate: 0
+  politeness: 0
+--- !u!114 &389799851846017712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793814199787654526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a664b4110faf24bb8964348b88d841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motorwayManagerPrefab: {fileID: 8363547042128119760, guid: e4ac3f1d76f99f745bf94e4992f3577c,
+    type: 3}
+  motorwayBackground: {fileID: 3222444094935100181, guid: ce3867ad17718a841a4495b863b75af0,
+    type: 3}
+  lanePrefab: {fileID: 7237167789778081111, guid: 58c63e42cdfea4744a83e105df13a567,
+    type: 3}
+  laneEdgeInner: {fileID: -1589764200542976455, guid: 12240db7e0f0e6a42b9c2efbfdc0ccf5,
+    type: 3}
+  laneInner: {fileID: 21300000, guid: e0290787d4c0a554eb1968a90ded279d, type: 3}
+  laneEdgeOuter: {fileID: 21300000, guid: b6f9bd7aef7b6874e90e7fe19f978bdf, type: 3}

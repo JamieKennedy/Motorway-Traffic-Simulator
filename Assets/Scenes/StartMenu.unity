@@ -1928,11 +1928,11 @@ MonoBehaviour:
   durationUnits: {fileID: 36017416}
   lanesNum: {fileID: 1794521513}
   speedLimit: {fileID: 946125208}
+  speedLimitUnits: {fileID: 669702164}
   arrivalRate: {fileID: 419644727}
   politeness: {fileID: 1949037579}
-  motorwayManagerPrefab: {fileID: 8363547042128119760, guid: e4ac3f1d76f99f745bf94e4992f3577c,
+  motorwaySetupPrefab: {fileID: 4793814199787654526, guid: cbfb15c66ef394547a3226f679f28199,
     type: 3}
-  StartUI: {fileID: 277860844}
   errorBox: {fileID: 1526269404}
   messages:
   - {fileID: 1941293306}
