@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1296335165417468928}
   - component: {fileID: 329973072954088954}
+  - component: {fileID: -4085460533079706880}
   m_Layer: 0
   m_Name: MotorwayManager
   m_TagString: MotorwayManager
@@ -48,3 +49,15 @@ MonoBehaviour:
   speedLimit: 0
   arrivalRate: 0
   politeness: 0
+--- !u!114 &-4085460533079706880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8363547042128119760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d588af6f01526a048a06e649683b1fc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

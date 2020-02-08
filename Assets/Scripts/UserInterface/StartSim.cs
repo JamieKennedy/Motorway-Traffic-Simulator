@@ -78,9 +78,11 @@ public class StartSim : MonoBehaviour {
 
         try {
             if (speedLimitUnits.options[speedLimitUnits.value].text.Equals("Mph")) {
-                parameters.speedLimit = MPHtoKPH(float.Parse(speedLimit.text));
+                // converts Miles per Hour to meters per second
+                parameters.speedLimit = float.Parse(speedLimit.text) / 2.237f;
             } else {
-                parameters.speedLimit = float.Parse(speedLimit.text);
+                // converts Kilometers per Hour to meters per second
+                parameters.speedLimit = float.Parse(speedLimit.text) / 3.6f;
             }
         } catch {
             ErrorHandler(2);
@@ -117,9 +119,5 @@ public class StartSim : MonoBehaviour {
         // enables error message box and the correct error message
         errorBox.SetActive(true);
         messages[errorIndex].gameObject.SetActive(true);
-    }
-
-    private static float MPHtoKPH(float mph) {
-        return mph * 1.609f;
     }
 }

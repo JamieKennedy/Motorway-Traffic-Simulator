@@ -76,11 +76,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motorwayManagerPrefab: {fileID: 8363547042128119760, guid: e4ac3f1d76f99f745bf94e4992f3577c,
     type: 3}
-  motorwayBackground: {fileID: 3222444094935100181, guid: ce3867ad17718a841a4495b863b75af0,
-    type: 3}
   lanePrefab: {fileID: 7237167789778081111, guid: 58c63e42cdfea4744a83e105df13a567,
     type: 3}
   laneEdgeInner: {fileID: -1589764200542976455, guid: 12240db7e0f0e6a42b9c2efbfdc0ccf5,
     type: 3}
   laneInner: {fileID: 21300000, guid: e0290787d4c0a554eb1968a90ded279d, type: 3}
   laneEdgeOuter: {fileID: 21300000, guid: b6f9bd7aef7b6874e90e7fe19f978bdf, type: 3}
+  vehiclePrefab: {fileID: 5343237895248331181, guid: 7b03acbe281c35a46b92e3b077504c36,
+    type: 3}
