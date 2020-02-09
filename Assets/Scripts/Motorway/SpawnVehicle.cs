@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class SpawnVehicle : MonoBehaviour {
     
@@ -14,13 +15,22 @@ public class SpawnVehicle : MonoBehaviour {
 
     public bool isFree;
     private GameObject motorwayManager;
-    private Vehicles vehicles;
+    public Vehicles vehicles;
+
+    private Queue<GameObject> vehiclePool;
+
+    private List<GameObject> eastVehicles;
+    private List<GameObject> westVehicles;
 
     // Start is called before the first frame update
     void Start() {
         spawnPos = new Vector3(300f * (int) dir, gameObject.transform.position.y, 0);
+    }
+
+    public void setAssignments() {
         motorwayManager = GameObject.FindWithTag("MotorwayManager");
         vehicles = motorwayManager.GetComponent<Vehicles>();
+        vehiclePool = motorwayManager.GetComponent<VehiclePool>().vehiclePool;
         isFree = true;
     }
 
@@ -55,4 +65,25 @@ public class SpawnVehicle : MonoBehaviour {
                 break;
         }
     }
+
+    public void Spawn() {
+        var vehicle = vehiclePool.Dequeue();
+        vehicle.transform.position = spawnPos;
+        
+        switch (dir) {
+            case direction.East:
+                vehicle.GetComponent<VehicleMovement>().desiredSpeed =
+                    vehicle.GetComponent<VehicleMovement>().desiredSpeed;
+                vehicle.GetComponent<VehicleMovement>().canMove = true;
+                vehicles.eastVehicles[laneIndex].Add(vehicle);
+                break;
+            case direction.West:
+                vehicle.GetComponent<VehicleMovement>().desiredSpeed =
+                    vehicle.GetComponent<VehicleMovement>().desiredSpeed * -1;
+                vehicle.GetComponent<VehicleMovement>().canMove = true;
+                vehicles.westVehicles[laneIndex].Add(vehicle);
+                break;
+        }
+    }
+        
 }

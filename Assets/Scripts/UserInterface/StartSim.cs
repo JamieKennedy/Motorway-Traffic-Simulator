@@ -91,7 +91,7 @@ public class StartSim : MonoBehaviour {
         }
         
         try {
-            parameters.arrivalRate = float.Parse(arrivalRate.text);
+            parameters.arrivalRate = float.Parse(arrivalRate.text) / 60f;
         } catch {
             ErrorHandler(3);
             Destroy(motorwaySetup);

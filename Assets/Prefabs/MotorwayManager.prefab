@@ -10,7 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1296335165417468928}
   - component: {fileID: 329973072954088954}
-  - component: {fileID: -4085460533079706880}
+  - component: {fileID: 7247172447557240044}
+  - component: {fileID: 5641551151840714831}
+  - component: {fileID: 2434572533197057199}
+  - component: {fileID: -407959693871209718}
   m_Layer: 0
   m_Name: MotorwayManager
   m_TagString: MotorwayManager
@@ -49,7 +52,56 @@ MonoBehaviour:
   speedLimit: 0
   arrivalRate: 0
   politeness: 0
---- !u!114 &-4085460533079706880
+--- !u!114 &7247172447557240044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8363547042128119760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f3a0c054639d6e49ad78b6dc6a27fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lanePrefab: {fileID: 7237167789778081111, guid: 58c63e42cdfea4744a83e105df13a567,
+    type: 3}
+  vehiclePrefab: {fileID: 5343237895248331181, guid: 7b03acbe281c35a46b92e3b077504c36,
+    type: 3}
+--- !u!114 &5641551151840714831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8363547042128119760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b7912f353306d4bb100a0339492b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lanePrefab: {fileID: 7237167789778081111, guid: 58c63e42cdfea4744a83e105df13a567,
+    type: 3}
+  laneEdgeInner: {fileID: -1589764200542976455, guid: 12240db7e0f0e6a42b9c2efbfdc0ccf5,
+    type: 3}
+  laneInner: {fileID: 21300000, guid: e0290787d4c0a554eb1968a90ded279d, type: 3}
+  laneEdgeOuter: {fileID: 21300000, guid: b6f9bd7aef7b6874e90e7fe19f978bdf, type: 3}
+  eastLanes: []
+  westLanes: []
+--- !u!114 &2434572533197057199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8363547042128119760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58d8005d43675eb4db531a5c022bf290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canSpawn: 0
+--- !u!114 &-407959693871209718
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
