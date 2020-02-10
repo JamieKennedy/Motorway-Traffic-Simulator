@@ -34,32 +34,32 @@ public class Lanes : MonoBehaviour {
             for (var i = 0; i < motorwayManagerParameters.lanesNum; i++) {
                 var pos = new Vector3(0, (5 + 15 * (i + 1)) * direction, 0);
                 var lane = Instantiate(lanePrefab, pos, Quaternion.identity, motorwayBackground.transform);
-                lane.GetComponent<SpawnVehicle>().setAssignments();
+                lane.GetComponent<LaneProperties>().setAssignments();
 
                 if (i == 0) {
                     switch (direction) {
                         case -1:
                             lane.GetComponent<Image>().sprite = laneEdgeOuter;
-                            lane.GetComponent<SpawnVehicle>().dir = SpawnVehicle.direction.West;
-                            lane.GetComponent<SpawnVehicle>().laneIndex = i;
+                            lane.GetComponent<LaneProperties>().dir = LaneProperties.direction.West;
+                            lane.GetComponent<LaneProperties>().laneIndex = i;
                             break;
                         case 1:
                             lane.GetComponent<Image>().sprite = laneEdgeInner;
-                            lane.GetComponent<SpawnVehicle>().dir = SpawnVehicle.direction.East;
-                            lane.GetComponent<SpawnVehicle>().laneIndex = i;
+                            lane.GetComponent<LaneProperties>().dir = LaneProperties.direction.East;
+                            lane.GetComponent<LaneProperties>().laneIndex = i;
                             break;
                     }
                 } else if (i == motorwayManagerParameters.lanesNum - 1) {
                     switch (direction) {
                         case -1:
                             lane.GetComponent<Image>().sprite = laneEdgeInner;
-                            lane.GetComponent<SpawnVehicle>().dir = SpawnVehicle.direction.West;
-                            lane.GetComponent<SpawnVehicle>().laneIndex = i;
+                            lane.GetComponent<LaneProperties>().dir = LaneProperties.direction.West;
+                            lane.GetComponent<LaneProperties>().laneIndex = i;
                             break;
                         case 1:
                             lane.GetComponent<Image>().sprite = laneEdgeOuter;
-                            lane.GetComponent<SpawnVehicle>().dir = SpawnVehicle.direction.East;
-                            lane.GetComponent<SpawnVehicle>().laneIndex = i;
+                            lane.GetComponent<LaneProperties>().dir = LaneProperties.direction.East;
+                            lane.GetComponent<LaneProperties>().laneIndex = i;
                             break;
                     }
                     
@@ -67,13 +67,13 @@ public class Lanes : MonoBehaviour {
                     switch (direction) {
                         case -1:
                             lane.GetComponent<Image>().sprite = laneInner;
-                            lane.GetComponent<SpawnVehicle>().dir = SpawnVehicle.direction.West;
-                            lane.GetComponent<SpawnVehicle>().laneIndex = i;
+                            lane.GetComponent<LaneProperties>().dir = LaneProperties.direction.West;
+                            lane.GetComponent<LaneProperties>().laneIndex = i;
                             break;
                         case 1:
                             lane.GetComponent<Image>().sprite = laneInner;
-                            lane.GetComponent<SpawnVehicle>().dir = SpawnVehicle.direction.East;
-                            lane.GetComponent<SpawnVehicle>().laneIndex = i;
+                            lane.GetComponent<LaneProperties>().dir = LaneProperties.direction.East;
+                            lane.GetComponent<LaneProperties>().laneIndex = i;
                             break;
                     }
                 }

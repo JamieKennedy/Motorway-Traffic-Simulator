@@ -43,7 +43,7 @@ public class Spawner : MonoBehaviour {
     private void getFree(GameObject[] lanes) {
         freeLanes = new List<GameObject>();
         foreach (var lane in lanes) {
-            if (lane.GetComponent<SpawnVehicle>().isFree) {
+            if (lane.GetComponent<LaneProperties>().isFree) {
                 freeLanes.Add(lane);
             }
         }

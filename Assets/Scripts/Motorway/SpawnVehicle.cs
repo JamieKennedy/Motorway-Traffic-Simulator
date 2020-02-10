@@ -2,86 +2,64 @@
 using UnityEngine;
 
 public class SpawnVehicle : MonoBehaviour {
-    
-    public enum direction {
-        East = -1,
-        West = 1
-    }
 
-    public direction dir;
-    [SerializeField] private Vector3 spawnPos;
-    [SerializeField] private float distance;
-    public int laneIndex;
-
-    public bool isFree;
-    private GameObject motorwayManager;
-    public Vehicles vehicles;
-
-    private Queue<GameObject> vehiclePool;
-
-    private List<GameObject> eastVehicles;
-    private List<GameObject> westVehicles;
+    public LaneProperties laneProperties;
 
     // Start is called before the first frame update
     void Start() {
-        spawnPos = new Vector3(300f * (int) dir, gameObject.transform.position.y, 0);
+        laneProperties = gameObject.GetComponent<LaneProperties>();
     }
 
-    public void setAssignments() {
-        motorwayManager = GameObject.FindWithTag("MotorwayManager");
-        vehicles = motorwayManager.GetComponent<Vehicles>();
-        vehiclePool = motorwayManager.GetComponent<VehiclePool>().vehiclePool;
-        isFree = true;
-    }
+    
 
     // Update is called once per frame
     void FixedUpdate() {
-        switch (dir) {
-            case direction.East:
+        switch (laneProperties.dir) {
+            case LaneProperties.direction.East:
                 var tempEast = true;
-                if (vehicles.eastVehicles[laneIndex] != null) {
-                    foreach (var vehicle in vehicles.eastVehicles[laneIndex]) {
-                        if (Vector3.Distance(vehicle.transform.position, spawnPos) < distance) {
+                if (laneProperties.vehicles.eastVehicles[laneProperties.laneIndex] != null) {
+                    foreach (var vehicle in laneProperties.vehicles.eastVehicles[laneProperties.laneIndex]) {
+                        if (Vector3.Distance(vehicle.transform.position, laneProperties.spawnPos) < laneProperties.distance) {
                             tempEast = false;
                             break;
                         }
                     }
                 }
                 
-                isFree = tempEast;
+                laneProperties.isFree = tempEast;
                 break;
-            case direction.West:
+            case LaneProperties.direction.West:
                 var tempWest = true;
-                if (vehicles.westVehicles[laneIndex] != null) {
-                    foreach (var vehicle in vehicles.westVehicles[laneIndex]) {
-                        if (Vector3.Distance(vehicle.transform.position, spawnPos) < distance) {
+                if (laneProperties.vehicles.westVehicles[laneProperties.laneIndex] != null) {
+                    foreach (var vehicle in laneProperties.vehicles.westVehicles[laneProperties.laneIndex]) {
+                        if (Vector3.Distance(vehicle.transform.position, laneProperties.spawnPos) < laneProperties.distance) {
                             tempWest = false;
                             break;
                         }
                     }
                 }
 
-                isFree = tempWest;
+                laneProperties.isFree = tempWest;
                 break;
         }
     }
 
     public void Spawn() {
-        var vehicle = vehiclePool.Dequeue();
-        vehicle.transform.position = spawnPos;
+        var vehicle = laneProperties.vehiclePool.Dequeue();
+        vehicle.transform.position = laneProperties.spawnPos;
         
-        switch (dir) {
-            case direction.East:
+        switch (laneProperties.dir) {
+            case LaneProperties.direction.East:
                 vehicle.GetComponent<VehicleMovement>().desiredSpeed =
                     vehicle.GetComponent<VehicleMovement>().desiredSpeed;
                 vehicle.GetComponent<VehicleMovement>().canMove = true;
-                vehicles.eastVehicles[laneIndex].Add(vehicle);
+                    laneProperties.vehicles.eastVehicles[laneProperties.laneIndex].Add(vehicle);
                 break;
-            case direction.West:
+            case LaneProperties.direction.West:
                 vehicle.GetComponent<VehicleMovement>().desiredSpeed =
                     vehicle.GetComponent<VehicleMovement>().desiredSpeed * -1;
                 vehicle.GetComponent<VehicleMovement>().canMove = true;
-                vehicles.westVehicles[laneIndex].Add(vehicle);
+                    laneProperties.vehicles.westVehicles[laneProperties.laneIndex].Add(vehicle);
                 break;
         }
     }
