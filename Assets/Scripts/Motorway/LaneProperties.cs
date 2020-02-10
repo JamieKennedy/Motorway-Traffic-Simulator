@@ -6,8 +6,8 @@ using UnityEngine;
 public class LaneProperties : MonoBehaviour {
     
     public enum direction {
-        East = -1,
-        West = 1
+        East = 1,
+        West = -1
     }
 
     public direction dir;
@@ -26,8 +26,8 @@ public class LaneProperties : MonoBehaviour {
 
     public void Start() {
         yPos = gameObject.transform.position.y;
-        spawnPos = new Vector3(300f * (int) dir, yPos, 0);
-        deSpawnPos = new Vector3(300f * (int) dir * -1, yPos, 0);
+        spawnPos = new Vector3(300f * (int) dir * -1, yPos, 0);
+        deSpawnPos = new Vector3(300f * (int) dir, yPos, 0);
     }
 
     public void setAssignments() {
@@ -37,7 +37,4 @@ public class LaneProperties : MonoBehaviour {
         isFree = true;
         
     }
-
-    // Update is called once per frame
-    void Update() { }
 }

@@ -50,15 +50,15 @@ public class SpawnVehicle : MonoBehaviour {
         
         switch (laneProperties.dir) {
             case LaneProperties.direction.East:
-                vehicle.GetComponent<VehicleMovement>().desiredSpeed =
-                    vehicle.GetComponent<VehicleMovement>().desiredSpeed;
-                vehicle.GetComponent<VehicleMovement>().canMove = true;
+                vehicle.GetComponent<VehicleProperties>().direction = LaneProperties.direction.East;
+                vehicle.GetComponent<VehicleProperties>().canMove = true;
+                vehicle.GetComponent<VehicleProperties>().currentLane = laneProperties.laneIndex;
                     laneProperties.vehicles.eastVehicles[laneProperties.laneIndex].Add(vehicle);
                 break;
             case LaneProperties.direction.West:
-                vehicle.GetComponent<VehicleMovement>().desiredSpeed =
-                    vehicle.GetComponent<VehicleMovement>().desiredSpeed * -1;
-                vehicle.GetComponent<VehicleMovement>().canMove = true;
+                vehicle.GetComponent<VehicleProperties>().direction = LaneProperties.direction.West;
+                vehicle.GetComponent<VehicleProperties>().canMove = true;
+                vehicle.GetComponent<VehicleProperties>().currentLane = laneProperties.laneIndex;
                     laneProperties.vehicles.westVehicles[laneProperties.laneIndex].Add(vehicle);
                 break;
         }

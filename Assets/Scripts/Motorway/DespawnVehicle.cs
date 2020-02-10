@@ -7,7 +7,6 @@ public class DespawnVehicle : MonoBehaviour {
     
     public LaneProperties laneProperties;
     
-    // Start is called before the first frame update
     void Start() {
         laneProperties = gameObject.GetComponent<LaneProperties>();
     }
@@ -20,7 +19,7 @@ public class DespawnVehicle : MonoBehaviour {
                         if (Vector3.Distance(vehicle.transform.position, laneProperties.deSpawnPos) <
                             laneProperties.distance) {
                             laneProperties.vehiclePool.Enqueue(vehicle);
-                            vehicle.GetComponent<VehicleMovement>().canMove = false;
+                            vehicle.GetComponent<VehicleProperties>().canMove = false;
                             vehicle.transform.position =
                                 laneProperties.motorwayManager.GetComponent<VehiclePool>().poolPos;
                         }
@@ -33,7 +32,7 @@ public class DespawnVehicle : MonoBehaviour {
                         if (Vector3.Distance(vehicle.transform.position, laneProperties.deSpawnPos) <
                             laneProperties.distance) {
                             laneProperties.vehiclePool.Enqueue(vehicle);
-                            vehicle.GetComponent<VehicleMovement>().canMove = false;
+                            vehicle.GetComponent<VehicleProperties>().canMove = false;
                             vehicle.transform.position =
                                 laneProperties.motorwayManager.GetComponent<VehiclePool>().poolPos;
                         }

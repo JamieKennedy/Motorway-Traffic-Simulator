@@ -7,5 +7,4 @@ public class Vehicles : MonoBehaviour {
     public List<GameObject>[] westVehicles;
 
     private Parameters parameters;
-
 }
