@@ -14,6 +14,7 @@ public class VehicleProperties : MonoBehaviour {
     public float maxAccel;
     public float desiredDecel;
     public float politeness;
+    public float vehicleWidth;
 
     public float currentVel;
     public float currentAccel;
@@ -25,6 +26,8 @@ public class VehicleProperties : MonoBehaviour {
     void Start() {
         motorwayManager = GameObject.FindWithTag("MotorwayManager");
         motorwayParameters = motorwayManager.GetComponent<Parameters>();
+
+        vehicleWidth = gameObject.GetComponent<RectTransform>().rect.width * gameObject.transform.localScale.x;
         
         setParameters();
 
@@ -37,11 +40,11 @@ public class VehicleProperties : MonoBehaviour {
 
         freeAccExponent = 4;
 
-        desiredTimeGap = Random.Range(1.5f * 0.8f, 1.5f * 1.2f);
+        desiredTimeGap = Random.Range(0.5f * 0.8f,0.5f * 1.2f);
 
-        jamDistance = Random.Range(2f * 0.8f, 2f * 1.2f);
+        jamDistance = Random.Range(2f * 0.8f, 2f * 1.2f) + vehicleWidth;
 
-        maxAccel = Random.Range(1.4f * 0.8f, 1.4f * 1.2f);
+        maxAccel = Random.Range(4f * 0.8f, 4f * 1.2f);
 
         desiredDecel = Random.Range(2f * 0.8f, 2f * 1.2f);
 

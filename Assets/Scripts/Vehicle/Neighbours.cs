@@ -86,6 +86,10 @@ public class Neighbours : MonoBehaviour {
                     
                     break;
             }
+        } else {
+            for (int i = 0; i < 6; i++) {
+                neighbours[i] = null;
+            }
         }
     }
 

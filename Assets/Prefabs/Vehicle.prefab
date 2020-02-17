@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3159731812176824177}
+  - component: {fileID: 9211831145369767327}
   - component: {fileID: 5984515601656202590}
   - component: {fileID: -3934040791421281054}
   - component: {fileID: -8654046978690891331}
@@ -20,8 +20,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3159731812176824177
-Transform:
+--- !u!224 &9211831145369767327
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -34,6 +34,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 5.12, y: 2.56}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &5984515601656202590
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -95,8 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7271476aaca50f48baae9739c4953f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredSpeed: 0
-  canMove: 0
 --- !u!114 &-8654046978690891331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,3 +131,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c6a34f7ee87080499a577ca1b2b0432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desiredSpeed: 0
+  freeAccExponent: 0
+  desiredTimeGap: 0
+  jamDistance: 0
+  maxAccel: 0
+  desiredDecel: 0
+  politeness: 0
+  currentVel: 0
+  currentAccel: 0
+  canMove: 0
+  currentLane: 0
+  direction: 0

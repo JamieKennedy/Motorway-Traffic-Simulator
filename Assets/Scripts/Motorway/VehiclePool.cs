@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VehiclePool : MonoBehaviour {
-    private const float vehicleWidth = 5.12f;
 
     [SerializeField] private GameObject lanePrefab;
     
@@ -18,7 +17,7 @@ public class VehiclePool : MonoBehaviour {
     public void CreateVehiclePool() {
         motorwayManagerParameters = gameObject.GetComponent<Parameters>();
         var vehicleQueueParent = GameObject.Find("VehicleQueue");
-        var vehiclesPerLane = Math.Ceiling(lanePrefab.GetComponent<RectTransform>().rect.width / vehicleWidth);
+        var vehiclesPerLane = Math.Ceiling(lanePrefab.GetComponent<RectTransform>().rect.width / vehiclePrefab.GetComponent<RectTransform>().rect.width);
         for (int i = 0; i < vehiclesPerLane * motorwayManagerParameters.lanesNum * 2; i++) {
             var vehicle = Instantiate(vehiclePrefab, poolPos, Quaternion.identity, vehicleQueueParent.transform);
             vehiclePool.Enqueue(vehicle);
