@@ -31,24 +31,25 @@ public class VehicleProperties : MonoBehaviour {
         
         setParameters();
 
-        currentVel = Random.Range(motorwayParameters.speedLimit * 0.8f, motorwayParameters.speedLimit * 1.2f);
+        //currentVel = Random.Range(motorwayParameters.speedLimit * 0.8f, motorwayParameters.speedLimit * 1.2f);
+        //currentVel = 0f;
         currentAccel = 0f;
     }
 
     private void setParameters() {
-        desiredSpeed = Random.Range(motorwayParameters.speedLimit * 0.8f, motorwayParameters.speedLimit * 1.2f);
+        desiredSpeed = Random.Range(motorwayParameters.speedLimit * 0.5f, motorwayParameters.speedLimit * 1.5f);
 
         freeAccExponent = 4;
 
-        desiredTimeGap = Random.Range(0.5f * 0.8f,0.5f * 1.2f);
+        desiredTimeGap = Random.Range(1f * 0.5f, 1f * 1.5f);
 
-        jamDistance = Random.Range(2f * 0.8f, 2f * 1.2f) + vehicleWidth;
+        jamDistance = Random.Range(2f * 0.5f, 2f * 1.5f) + vehicleWidth / 2;
 
-        maxAccel = Random.Range(4f * 0.8f, 4f * 1.2f);
+        maxAccel = Random.Range(1.4f * 0.5f, 1.4f * 1.5f);
 
-        desiredDecel = Random.Range(2f * 0.8f, 2f * 1.2f);
+        desiredDecel = Random.Range(2f * 0.5f, 2f * 1.5f);
 
-        politeness = Random.Range(((motorwayParameters.politeness * 2) / 100) * 0.8f,
-            ((motorwayParameters.politeness * 2) / 100) * 1.2f);
+        politeness = Random.Range(((motorwayParameters.politeness * 2) / 100) * 0.5f,
+            ((motorwayParameters.politeness * 2) / 100) * 1.5f);
     }
 }

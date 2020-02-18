@@ -41,7 +41,12 @@ public class VehicleMovement : MonoBehaviour {
                     break;
             }
 
-            vehicleProperties.currentVel += vehicleProperties.currentAccel * 0.02f;
+            if (vehicleProperties.currentVel + vehicleProperties.currentAccel * 0.02f > 0) {
+                vehicleProperties.currentVel += vehicleProperties.currentAccel * 0.02f;
+            } else {
+                vehicleProperties.currentVel = 0;
+            }
+            
             gameObject.transform.position += new Vector3(vehicleProperties.currentVel * 0.02f * (int) vehicleProperties.direction, 0 , 0);
         }
     }
@@ -72,7 +77,7 @@ public class VehicleMovement : MonoBehaviour {
                     break;
             }
 
-            deltaV = Math.Abs(vehicleAProperties.currentVel - vehicleBProperties.currentVel);
+            deltaV = vehicleAProperties.currentVel - vehicleBProperties.currentVel;
         } else {
             s = 600f;
             deltaV = 0f;
