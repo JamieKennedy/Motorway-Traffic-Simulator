@@ -22,12 +22,12 @@ public class LaneProperties : MonoBehaviour {
 
     public Queue<GameObject> vehiclePool;
 
-    private float yPos;
+    public float yPos;
 
     public void Start() {
         yPos = gameObject.transform.position.y;
-        spawnPos = new Vector3(300f * (int) dir * -1, yPos, 0);
-        deSpawnPos = new Vector3(300f * (int) dir, yPos, 0);
+        spawnPos = new Vector3(600f * (int) dir * -1, yPos, 0);
+        deSpawnPos = new Vector3(600f * (int) dir, yPos, 0);
     }
 
     public void setAssignments() {

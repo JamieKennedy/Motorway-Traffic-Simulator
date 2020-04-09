@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class VehicleProperties : MonoBehaviour {
     
@@ -15,6 +17,9 @@ public class VehicleProperties : MonoBehaviour {
     public float desiredDecel;
     public float politeness;
     public float vehicleWidth;
+    public float changeThreshold;
+    public float mobil;
+    public float laneChangeCoolDown;
 
     public float currentVel;
     public float currentAccel;
@@ -28,28 +33,37 @@ public class VehicleProperties : MonoBehaviour {
         motorwayParameters = motorwayManager.GetComponent<Parameters>();
 
         vehicleWidth = gameObject.GetComponent<RectTransform>().rect.width * gameObject.transform.localScale.x;
-        
-        setParameters();
 
         //currentVel = Random.Range(motorwayParameters.speedLimit * 0.8f, motorwayParameters.speedLimit * 1.2f);
         //currentVel = 0f;
         currentAccel = 0f;
+        changeThreshold = 0.5f;
+        laneChangeCoolDown = 10f;
     }
 
-    private void setParameters() {
-        desiredSpeed = Random.Range(motorwayParameters.speedLimit * 0.5f, motorwayParameters.speedLimit * 1.5f);
+    public void setParameters() {
+        desiredSpeed = normalDist(motorwayParameters.speedLimit, motorwayParameters.speedLimit * 0.2f);
 
         freeAccExponent = 4;
 
-        desiredTimeGap = Random.Range(1f * 0.5f, 1f * 1.5f);
+        desiredTimeGap = normalDist(1f, 0.2f);
 
-        jamDistance = Random.Range(2f * 0.5f, 2f * 1.5f) + vehicleWidth / 2;
+        jamDistance = normalDist(2f, 0.2f) + vehicleWidth / 2;
 
-        maxAccel = Random.Range(1.4f * 0.5f, 1.4f * 1.5f);
+        maxAccel = normalDist(4f, 0.2f);
 
-        desiredDecel = Random.Range(2f * 0.5f, 2f * 1.5f);
+        desiredDecel = normalDist(2f, 0.2f);
 
-        politeness = Random.Range(((motorwayParameters.politeness * 2) / 100) * 0.5f,
-            ((motorwayParameters.politeness * 2) / 100) * 1.5f);
+        politeness = normalDist((motorwayParameters.politeness) / 100,
+            ((motorwayParameters.politeness) / 100) * 0.1f);
+    }
+
+    private float normalDist(float mu, float sigma) {
+        var u1 = Random.Range(0f, 1f);
+        var u2 = Random.Range(0f, 1f);
+
+        var z = Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2);
+
+        return Convert.ToSingle(z * sigma + mu);
     }
 }

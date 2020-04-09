@@ -7,6 +7,7 @@ public class SpawnVehicle : MonoBehaviour {
     private GameObject closestVehicle;
     private VehicleProperties vehicleProperties;
     private Parameters motorwayParameters;
+    private ChangeLanes changeLanes;
 
     // Start is called before the first frame update
     void Start() {
@@ -50,7 +51,10 @@ public class SpawnVehicle : MonoBehaviour {
 
     public void Spawn() {
         var vehicle = laneProperties.vehiclePool.Dequeue();
+        //changeLanes = vehicle.GetComponent<ChangeLanes>();
         vehicleProperties = vehicle.GetComponent<VehicleProperties>();
+        //changeLanes.laneChangeCoolDownTimer = vehicleProperties.laneChangeCoolDown;
+        vehicleProperties.setParameters();
         vehicle.transform.position = laneProperties.spawnPos;
         
         switch (laneProperties.dir) {

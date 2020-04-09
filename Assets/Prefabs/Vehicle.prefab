@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3934040791421281054}
   - component: {fileID: -8654046978690891331}
   - component: {fileID: -6393349790853799629}
+  - component: {fileID: -9152773235217761018}
   m_Layer: 0
   m_Name: Vehicle
   m_TagString: Untagged
@@ -138,8 +139,21 @@ MonoBehaviour:
   maxAccel: 0
   desiredDecel: 0
   politeness: 0
+  vehicleWidth: 0
   currentVel: 0
   currentAccel: 0
   canMove: 0
   currentLane: 0
   direction: 0
+--- !u!114 &-9152773235217761018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5343237895248331181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268ff88b4ba4cd74a986a8cec937e32c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
