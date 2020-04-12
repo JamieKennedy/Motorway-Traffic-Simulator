@@ -154,3 +154,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1228d040a40742e44be442d188cc46c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eastboundArrivalCount: 0
+  eastboundDepartureCount: 0
+  westboundArrivalCount: 0
+  westboundDepartureCount: 0
+  eastboundArrivalRate: 0
+  eastboundDepartureRate: 0
+  westboundArrivalRate: 0
+  westboundDepartureRate: 0
+  eastboundVehicleNum: 0
+  westboundVehicleNum: 0
+  eastboundAverageSpeed: 0
+  westboundAverageSpeed: 0

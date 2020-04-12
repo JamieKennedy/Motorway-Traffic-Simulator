@@ -38,6 +38,8 @@ public class MotorwaySetup : MonoBehaviour {
         motorwayManagerParameters.speedLimit = setupParameters.speedLimit;
         motorwayManagerParameters.arrivalRate = setupParameters.arrivalRate;
         motorwayManagerParameters.politeness = setupParameters.politeness;
+        motorwayManagerParameters.durationUnits = setupParameters.durationUnits;
+        motorwayManagerParameters.speedUnits = setupParameters.speedUnits;
 
         // sets assignments for vehicles class
         //motorwayManager.GetComponent<Vehicles>().setAssignments();

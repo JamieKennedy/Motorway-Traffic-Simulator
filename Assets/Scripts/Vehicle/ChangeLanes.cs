@@ -26,7 +26,8 @@ public class ChangeLanes : MonoBehaviour {
     private int newLaneIndex;
     private float newYPos;
     private int laneChangeDir;
-    private bool changingLane = false;
+    public bool changingLane = false;
+    public bool canChange;
 
     public float laneChangeCoolDownTimer;
     
@@ -50,7 +51,7 @@ public class ChangeLanes : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (vehicleProperties.canMove && laneChangeCoolDownTimer <= 0) {
+        if (vehicleProperties.canMove && laneChangeCoolDownTimer <= 0 && !vehicleProperties.hasStopped) {
             laneChangeCoolDownTimer = vehicleProperties.laneChangeCoolDown;
             switch (vehicleProperties.direction) {
                 case LaneProperties.direction.East:
@@ -126,10 +127,10 @@ public class ChangeLanes : MonoBehaviour {
         getFrontAndRearNewLane(facingDir, newLane);
 
         if (infrontVehicleNewLane != null) {
-            if (canChange(gameObject, infrontVehicleNewLane)) {
+            if (CanChange(gameObject, infrontVehicleNewLane)) {
                 accelNewLaneChanged = vehicleMovement.IDM(gameObject, infrontVehicleNewLane);
                 if (behindVehicleNewLane != null) {
-                    if (canChange(behindVehicleNewLane, gameObject)) {
+                    if (CanChange(behindVehicleNewLane, gameObject)) {
                         accelBehindNewLaneCurr = vehicleMovement.IDM(behindVehicleNewLane, infrontVehicleNewLane);
                         accelBehindNewLaneChanged = vehicleMovement.IDM(behindVehicleNewLane, gameObject);
                     } else {
@@ -145,7 +146,7 @@ public class ChangeLanes : MonoBehaviour {
         } else {
             accelNewLaneChanged = vehicleProperties.maxAccel;
             if (behindVehicleNewLane != null) {
-                if (canChange(behindVehicleNewLane, gameObject)) {
+                if (CanChange(behindVehicleNewLane, gameObject)) {
                     accelBehindNewLaneCurr = behindVehicleNewLane.GetComponent<VehicleProperties>().maxAccel;
                 } else {
                     return 0f;
@@ -238,7 +239,7 @@ public class ChangeLanes : MonoBehaviour {
     }
 
     // Vehicle A follows Vehicle B
-    private bool canChange(GameObject vehicleA, GameObject vehicleB) {
+    private bool CanChange(GameObject vehicleA, GameObject vehicleB) {
         var vehicleAProperties = vehicleA.GetComponent<VehicleProperties>();
         var vehicleBProperties = vehicleB.GetComponent<VehicleProperties>();
         var vehicleAFront = 0f;
@@ -261,11 +262,9 @@ public class ChangeLanes : MonoBehaviour {
                 vehicleBBack = vehicleB.transform.position.x + (vehicleBProperties.vehicleWidth / 2f);
                 break;
         }
-        
-        
-        
 
-        return Math.Abs(vehicleBBack - vehicleAFront) > vehicleAProperties.jamDistance * 2f;
+
+        return Math.Abs(vehicleBBack - vehicleAFront) > vehicleAProperties.jamDistance;
     }
 
     private void changeYPos(int direction) {

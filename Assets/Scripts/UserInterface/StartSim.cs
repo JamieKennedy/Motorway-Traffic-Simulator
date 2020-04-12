@@ -34,7 +34,7 @@ public class StartSim : MonoBehaviour {
         // Assigns the parameters values from the start UI to parameters component
         if (!duration.text.Equals("")) {
             durationUnitsText = durationUnits.options[durationUnits.value].text;
-            
+            parameters.durationUnits = durationUnitsText;
             switch (durationUnitsText) {
                 case "Seconds":
                     try {
@@ -77,6 +77,7 @@ public class StartSim : MonoBehaviour {
         }
 
         try {
+            parameters.speedUnits = speedLimitUnits.options[speedLimitUnits.value].text;
             if (speedLimitUnits.options[speedLimitUnits.value].text.Equals("Mph")) {
                 // converts Miles per Hour to meters per second
                 parameters.speedLimit = float.Parse(speedLimit.text) / 2.237f;

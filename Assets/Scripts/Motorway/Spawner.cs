@@ -36,7 +36,10 @@ public class Spawner : MonoBehaviour {
     public void setAssignments() {
         lanes = gameObject.GetComponent<Lanes>();
         parameters = gameObject.GetComponent<Parameters>();
+        SetProb();
+    }
 
+    public void SetProb() {
         prob = Convert.ToInt32(1 / (parameters.arrivalRate * Time.fixedDeltaTime));
     }
 

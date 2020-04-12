@@ -7,13 +7,14 @@ using UnityEngine.UI;
 
 public class SimSpeedControls : MonoBehaviour {
 
-    private int simSpeedIndex;
+    public int simSpeedIndex;
     private int[] speeds;
 
     public bool currentState;
 
     public GameObject pauseIcon;
     public GameObject playIcon;
+    public GameObject skipButton;
     public TMP_Text speedText;
     
     // Start is called before the first frame update
@@ -30,7 +31,7 @@ public class SimSpeedControls : MonoBehaviour {
             pauseIcon.SetActive(false);
             currentState = false;
         } else {
-            Time.timeScale = speeds[simSpeedIndex];
+            Time.timeScale = speeds[skipButton.GetComponent<SimSpeedControls>().simSpeedIndex];
             playIcon.SetActive(false);
             pauseIcon.SetActive(true);
             currentState = true;

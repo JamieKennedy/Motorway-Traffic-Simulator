@@ -10,6 +10,7 @@ public class VehicleProperties : MonoBehaviour {
     private Parameters motorwayParameters;
     
     public float desiredSpeed;
+    public float desiredSpeedPerm;
     public int freeAccExponent;
     public float desiredTimeGap;
     public float jamDistance;
@@ -27,6 +28,7 @@ public class VehicleProperties : MonoBehaviour {
     public bool canMove = false;
     public int currentLane;
     public LaneProperties.direction direction;
+    public bool hasStopped;
     // Start is called before the first frame update
     void Start() {
         motorwayManager = GameObject.FindWithTag("MotorwayManager");
@@ -39,31 +41,55 @@ public class VehicleProperties : MonoBehaviour {
         currentAccel = 0f;
         changeThreshold = 0.5f;
         laneChangeCoolDown = 10f;
+        hasStopped = false;
     }
 
     public void setParameters() {
-        desiredSpeed = normalDist(motorwayParameters.speedLimit, motorwayParameters.speedLimit * 0.2f);
-
-        freeAccExponent = 4;
-
-        desiredTimeGap = normalDist(1f, 0.2f);
-
-        jamDistance = normalDist(2f, 0.2f) + vehicleWidth / 2;
-
-        maxAccel = normalDist(4f, 0.2f);
-
-        desiredDecel = normalDist(2f, 0.2f);
-
-        politeness = normalDist((motorwayParameters.politeness) / 100,
-            ((motorwayParameters.politeness) / 100) * 0.1f);
+        SetDesiredSpeed();
+        SetFreeExponent();
+        SetDesiredTimeGap();
+        SetJamDistance();
+        SetMaxAccel();
+        SetDesiredDecel();
+        SetPoliteness();
     }
 
-    private float normalDist(float mu, float sigma) {
+    private float NormalDist(float mu, float sigma) {
         var u1 = Random.Range(0f, 1f);
         var u2 = Random.Range(0f, 1f);
 
         var z = Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2);
 
         return Convert.ToSingle(z * sigma + mu);
+    }
+
+    public void SetDesiredSpeed() {
+        desiredSpeed = NormalDist(motorwayParameters.speedLimit, motorwayParameters.speedLimit * 0.1f);
+        desiredSpeedPerm = desiredSpeed;
+    }
+
+    public void SetFreeExponent() {
+        freeAccExponent = 4;
+    }
+
+    public void SetDesiredTimeGap() {
+        desiredTimeGap = NormalDist(1f, 0.2f);
+    }
+
+    public void SetJamDistance() {
+        jamDistance = NormalDist(10f, 0.2f) + vehicleWidth / 2;
+    }
+
+    public void SetMaxAccel() {
+        maxAccel = NormalDist(4f, 0.2f);
+    }
+
+    public void SetDesiredDecel() {
+        desiredDecel = NormalDist(2f, 0.2f);
+    }
+
+    public void SetPoliteness() {
+        politeness = NormalDist((motorwayParameters.politeness) / 100,
+            ((motorwayParameters.politeness) / 100) * 0.1f);
     }
 }

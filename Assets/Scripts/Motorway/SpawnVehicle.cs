@@ -6,13 +6,17 @@ public class SpawnVehicle : MonoBehaviour {
     public LaneProperties laneProperties;
     private GameObject closestVehicle;
     private VehicleProperties vehicleProperties;
+    private GameObject motorwayManager;
     private Parameters motorwayParameters;
+    private MotorwayStats motorwayStats;
     private ChangeLanes changeLanes;
 
     // Start is called before the first frame update
     void Start() {
         laneProperties = gameObject.GetComponent<LaneProperties>();
-        motorwayParameters = GameObject.FindWithTag("MotorwayManager").GetComponent<Parameters>();
+        motorwayManager = GameObject.FindWithTag("MotorwayManager");
+        motorwayStats = motorwayManager.GetComponent<MotorwayStats>();
+        motorwayParameters = motorwayManager.GetComponent<Parameters>();
     }
 
     
@@ -51,14 +55,13 @@ public class SpawnVehicle : MonoBehaviour {
 
     public void Spawn() {
         var vehicle = laneProperties.vehiclePool.Dequeue();
-        //changeLanes = vehicle.GetComponent<ChangeLanes>();
         vehicleProperties = vehicle.GetComponent<VehicleProperties>();
-        //changeLanes.laneChangeCoolDownTimer = vehicleProperties.laneChangeCoolDown;
         vehicleProperties.setParameters();
         vehicle.transform.position = laneProperties.spawnPos;
         
         switch (laneProperties.dir) {
             case LaneProperties.direction.East:
+                motorwayStats.eastboundArrivalCount += 1;
                 vehicleProperties.direction = LaneProperties.direction.East;
                 vehicleProperties.canMove = true;
                 vehicleProperties.currentLane = laneProperties.laneIndex;
@@ -66,6 +69,7 @@ public class SpawnVehicle : MonoBehaviour {
                 laneProperties.vehicles.eastVehicles[laneProperties.laneIndex].Add(vehicle);
                 break;
             case LaneProperties.direction.West:
+                motorwayStats.westboundArrivalCount += 1;
                 vehicleProperties.direction = LaneProperties.direction.West;
                 vehicleProperties.canMove = true;
                 vehicleProperties.currentLane = laneProperties.laneIndex;

@@ -10,4 +10,7 @@ public class Parameters : MonoBehaviour {
     public float speedLimit;
     public float arrivalRate;
     public float politeness;
+    public string speedUnits;
+    public string durationUnits;
+    
 }

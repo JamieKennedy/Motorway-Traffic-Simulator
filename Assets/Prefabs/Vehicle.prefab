@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: -8654046978690891331}
   - component: {fileID: -6393349790853799629}
   - component: {fileID: -9152773235217761018}
+  - component: {fileID: -1179186948111105651}
+  - component: {fileID: -1138266954330216939}
+  - component: {fileID: 8651033275905602620}
   m_Layer: 0
   m_Name: Vehicle
   m_TagString: Untagged
@@ -133,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredSpeed: 0
+  desiredSpeedPerm: 0
   freeAccExponent: 0
   desiredTimeGap: 0
   jamDistance: 0
@@ -140,6 +144,9 @@ MonoBehaviour:
   desiredDecel: 0
   politeness: 0
   vehicleWidth: 0
+  changeThreshold: 0
+  mobil: 0
+  laneChangeCoolDown: 0
   currentVel: 0
   currentAccel: 0
   canMove: 0
@@ -155,5 +162,57 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 268ff88b4ba4cd74a986a8cec937e32c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changingLane: 0
+  laneChangeCoolDownTimer: 0
+--- !u!61 &-1179186948111105651
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5343237895248331181}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 2.56}
+    newSize: {x: 4.359375, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.12, y: 2.56}
+  m_EdgeRadius: 0
+--- !u!114 &-1138266954330216939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5343237895248331181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c8ee1439643e048b561c6438d2d747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8651033275905602620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5343237895248331181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92476bcb840ba664f8d8c6f90ebf25f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
