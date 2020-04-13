@@ -54,12 +54,17 @@ public class FinalStats : MonoBehaviour {
         eastVehicleNums = motorwayStats.eastVehicleNums;
         westVehicleNums = motorwayStats.westVehicleNums;
 
+        eastArrivalRates = motorwayStats.eastArrivalRates;
+        westArrivalRates = motorwayStats.westArrivalRates;
+
+        eastDepartureRates = motorwayStats.eastDepartureRates;
+        westDepartureRates = motorwayStats.westDepartureRates;
+
         eastAverageArrivalRate = AverageFloatList(eastArrivalRates);
         westAverageArrivalRate = AverageFloatList(westArrivalRates);
 
         eastAverageDepartureRate = AverageFloatList(eastDepartureRates);
-        westAverageArrivalRate = AverageFloatList(westDepartureRates);
-
+        westAverageDepartureRate = AverageFloatList(westDepartureRates);
         eastAverageSpeed = AverageFloatList(eastAverageSpeeds);
         westAverageSpeed = AverageFloatList(westAverageSpeeds);
 
@@ -71,7 +76,9 @@ public class FinalStats : MonoBehaviour {
         var sum = 0f;
 
         foreach (var num in list) {
-            sum += num;
+            if (!float.IsNaN(num)) {
+                sum += num;
+            }
         }
 
         return sum / list.Count;
