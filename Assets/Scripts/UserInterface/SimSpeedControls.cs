@@ -26,15 +26,10 @@ public class SimSpeedControls : MonoBehaviour {
 
     public void PlayPause() {
         if (currentState) {
-            Time.timeScale = 0;
-            playIcon.SetActive(true);
-            pauseIcon.SetActive(false);
-            currentState = false;
+            Pause();
+            
         } else {
-            Time.timeScale = speeds[skipButton.GetComponent<SimSpeedControls>().simSpeedIndex];
-            playIcon.SetActive(false);
-            pauseIcon.SetActive(true);
-            currentState = true;
+            Play();
         }
     }
 
@@ -47,5 +42,19 @@ public class SimSpeedControls : MonoBehaviour {
 
         Time.timeScale = speeds[simSpeedIndex];
         speedText.text = speeds[simSpeedIndex].ToString() + "X";
+    }
+
+    public void Pause() {
+        Time.timeScale = 0;
+        playIcon.SetActive(true);
+        pauseIcon.SetActive(false);
+        currentState = false;
+    }
+
+    public void Play() {
+        Time.timeScale = speeds[skipButton.GetComponent<SimSpeedControls>().simSpeedIndex];
+        playIcon.SetActive(false);
+        pauseIcon.SetActive(true);
+        currentState = true;
     }
 }

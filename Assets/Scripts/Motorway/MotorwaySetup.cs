@@ -20,39 +20,46 @@ public class MotorwaySetup : MonoBehaviour {
     }
 
     private void onSceneLoaded(Scene scene, LoadSceneMode mode) {
-        Setup();
+        if (scene.name.Equals("MainSim")) {
+            Setup();
+        } else {
+            //Destroy(gameObject);
+        }
     }
 
     private void Setup() {
-        setupParameters = gameObject.GetComponent<Parameters>();
+        if (gameObject != null) {
+            setupParameters = gameObject.GetComponent<Parameters>();
         
-        // Instantiate the MotorwayManager Object
-        Instantiate(motorwayManagerPrefab, Vector3.zero, Quaternion.identity);
+            // Instantiate the MotorwayManager Object
+            motorwayManager = Instantiate(motorwayManagerPrefab, Vector3.zero, Quaternion.identity);
 
-        motorwayManager = GameObject.FindWithTag("MotorwayManager");
-        motorwayManagerParameters = motorwayManager.GetComponent<Parameters>();        
+            motorwayManagerParameters = motorwayManager.GetComponent<Parameters>();        
 
-        // Uses the setup parameters to assign to the motorway manager 
-        motorwayManagerParameters.duration = setupParameters.duration;
-        motorwayManagerParameters.lanesNum = setupParameters.lanesNum;
-        motorwayManagerParameters.speedLimit = setupParameters.speedLimit;
-        motorwayManagerParameters.arrivalRate = setupParameters.arrivalRate;
-        motorwayManagerParameters.politeness = setupParameters.politeness;
-        motorwayManagerParameters.durationUnits = setupParameters.durationUnits;
-        motorwayManagerParameters.speedUnits = setupParameters.speedUnits;
+            // Uses the setup parameters to assign to the motorway manager 
+            motorwayManagerParameters.duration = setupParameters.duration;
+            motorwayManagerParameters.lanesNum = setupParameters.lanesNum;
+            motorwayManagerParameters.speedLimit = setupParameters.speedLimit;
+            motorwayManagerParameters.arrivalRate = setupParameters.arrivalRate;
+            motorwayManagerParameters.politeness = setupParameters.politeness;
+            motorwayManagerParameters.durationUnits = setupParameters.durationUnits;
+            motorwayManagerParameters.speedUnits = setupParameters.speedUnits;
 
-        // sets assignments for vehicles class
-        //motorwayManager.GetComponent<Vehicles>().setAssignments();
+            // sets assignments for vehicles class
+            //motorwayManager.GetComponent<Vehicles>().setAssignments();
         
-        // Adds the lane sprites to the scene
-        motorwayManager.GetComponent<Lanes>().CreateLanes();
+            // Adds the lane sprites to the scene
+            motorwayManager.GetComponent<Lanes>().CreateLanes();
         
-        // Creates the vehicle Pool
-        motorwayManager.GetComponent<VehiclePool>().CreateVehiclePool();
+            // Creates the vehicle Pool
+            motorwayManager.GetComponent<VehiclePool>().CreateVehiclePool();
         
-        // Assigns spawner vars and allows spawning
-        motorwayManager.GetComponent<Spawner>().setAssignments();
-        motorwayManager.GetComponent<Spawner>().canSpawn = true;
+            // Assigns spawner vars and allows spawning
+            motorwayManager.GetComponent<Spawner>().setAssignments();
+            motorwayManager.GetComponent<Spawner>().canSpawn = true;
+            Time.timeScale = 1;
+        }
+        
     }
 
     

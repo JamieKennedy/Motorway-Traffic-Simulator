@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,16 +20,15 @@ public class StartSim : MonoBehaviour {
     
     [SerializeField] private GameObject motorwaySetupPrefab;
     private GameObject motorwaySetup;
+    public GameObject motorwayManager;
     private Parameters parameters;
 
     [SerializeField] private GameObject errorBox;
     [SerializeField] private TMP_Text[] messages = new TMP_Text[4];
 
     public void StartSimulation() {
-        DeleteAndInstantiate(motorwaySetupPrefab, "MotorwaySetup");
+        DeleteAndInstantiate();
 
-        motorwaySetup = GameObject.FindWithTag("MotorwaySetup");
-        
         parameters = motorwaySetup.GetComponent<Parameters>();
         
         // Assigns the parameters values from the start UI to parameters component
@@ -42,7 +42,7 @@ public class StartSim : MonoBehaviour {
                         break;
                     } catch {
                         ErrorHandler(0);
-                        Destroy(motorwaySetup);
+                        //Destroy(motorwaySetup);
                         return;
                     }
                 case "Minutes":
@@ -51,7 +51,7 @@ public class StartSim : MonoBehaviour {
                         break;
                     } catch {
                         ErrorHandler(0);
-                        Destroy(motorwaySetup);
+                        //Destroy(motorwaySetup);
                         return;
                     }
                 case "Hours":
@@ -60,7 +60,7 @@ public class StartSim : MonoBehaviour {
                         break;
                     } catch {
                         ErrorHandler(0);
-                        Destroy(motorwaySetup);
+                        //Destroy(motorwaySetup);
                         return;
                     }
             }
@@ -72,7 +72,7 @@ public class StartSim : MonoBehaviour {
             parameters.lanesNum = int.Parse(lanesNum.text);
         } catch {
             ErrorHandler(1);
-            Destroy(motorwaySetup);
+            //Destroy(motorwaySetup);
             return;
         }
 
@@ -87,7 +87,7 @@ public class StartSim : MonoBehaviour {
             }
         } catch {
             ErrorHandler(2);
-            Destroy(motorwaySetup);
+            //Destroy(motorwaySetup);
             return;
         }
         
@@ -95,7 +95,7 @@ public class StartSim : MonoBehaviour {
             parameters.arrivalRate = float.Parse(arrivalRate.text) / 60f;
         } catch {
             ErrorHandler(3);
-            Destroy(motorwaySetup);
+            //Destroy(motorwaySetup);
             return;
         }
 
@@ -105,11 +105,13 @@ public class StartSim : MonoBehaviour {
         SceneManager.LoadScene("MainSim");
     }
 
-    private static void DeleteAndInstantiate(GameObject prefab, string ObjectTag) {
-        if(GameObject.FindWithTag(ObjectTag) != null) {
-            Destroy(GameObject.FindWithTag(ObjectTag));
-        } 
-        Instantiate(prefab, Vector3.zero, Quaternion.identity);
+    private void DeleteAndInstantiate() {
+        if(!GameObject.FindWithTag("MotorwaySetup")) {
+            motorwaySetup = Instantiate(motorwaySetupPrefab, Vector3.zero, Quaternion.identity);
+        } else {
+            motorwaySetup = GameObject.FindWithTag("MotorwaySetup");
+        }
+        
     }
 
     private void ErrorHandler(int errorIndex) {

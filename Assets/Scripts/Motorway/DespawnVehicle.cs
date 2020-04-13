@@ -8,10 +8,12 @@ public class DespawnVehicle : MonoBehaviour {
     
     public LaneProperties laneProperties;
     private MotorwayStats motorwayStats;
+    private MotorwayTiming motorwayTiming;
     
     void Start() {
         laneProperties = gameObject.GetComponent<LaneProperties>();
         motorwayStats = GameObject.FindWithTag("MotorwayManager").GetComponent<MotorwayStats>();
+        motorwayTiming = GameObject.FindWithTag("MotorwayManager").GetComponent<MotorwayTiming>();
     }
 
     private void FixedUpdate() {
@@ -23,6 +25,7 @@ public class DespawnVehicle : MonoBehaviour {
                             laneProperties.distance) {
                             laneProperties.vehiclePool.Enqueue(vehicle);
                             motorwayStats.eastboundDepartureCount += 1;
+                            motorwayStats.eastVehicleDepartures.Add(motorwayTiming.elapsedTime);
                             vehicle.GetComponent<VehicleProperties>().canMove = false;
                             vehicle.GetComponent<ChangeLanes>().changingLane = false;
                             vehicle.transform.position =
@@ -39,6 +42,7 @@ public class DespawnVehicle : MonoBehaviour {
                             laneProperties.distance) {
                             laneProperties.vehiclePool.Enqueue(vehicle);
                             motorwayStats.westboundDepartureCount += 1;
+                            motorwayStats.westVehicleDepartures.Add(motorwayTiming.elapsedTime);
                             vehicle.GetComponent<VehicleProperties>().canMove = false;
                             vehicle.GetComponent<ChangeLanes>().changingLane = false;
                             vehicle.transform.position =

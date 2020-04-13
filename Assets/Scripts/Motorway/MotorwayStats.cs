@@ -20,6 +20,28 @@ public class MotorwayStats : MonoBehaviour {
     public float eastboundAverageSpeed;
     public float westboundAverageSpeed;
 
+    public List<float> eastVehicleArrivals;
+    public List<float> westVehicleArrivals;
+    
+    public List<float> eastVehicleDepartures;
+    public List<float> westVehicleDepartures;
+
+    public List<float> eastAverageSpeeds;
+    public List<float> westAverageSpeeds;
+
+    public List<int> eastVehicleNums;
+    public List<int> westVehicleNums;
+
+    public List<float> eastArrivalRates;
+    public List<float> westArrivalRates;
+
+    public List<float> eastDepartureRates;
+    public List<float> westDepartureRates;
+    
+
+    private float delay = 1f;
+    private float time;
+
     private MotorwayTiming motorwayTiming;
 
     private Vehicles vehicles;
@@ -44,6 +66,8 @@ public class MotorwayStats : MonoBehaviour {
 
         motorwayTiming = gameObject.GetComponent<MotorwayTiming>();
         vehicles = gameObject.GetComponent<Vehicles>();
+
+        StartCoroutine(DoEverySecond());
     }
 
     // Update is called once per frame
@@ -85,5 +109,28 @@ public class MotorwayStats : MonoBehaviour {
         }
 
         return count;
+    }
+
+    IEnumerator DoEverySecond() {
+        while (true) {
+            yield return new WaitForSeconds(delay);
+            AddToLists();
+        }
+    }
+
+    private void AddToLists() {
+        eastAverageSpeeds.Add(eastboundAverageSpeed);
+        westAverageSpeeds.Add(westboundAverageSpeed);
+        
+        eastVehicleNums.Add(eastboundVehicleNum);
+        westVehicleNums.Add(westboundVehicleNum);
+        
+        eastArrivalRates.Add(eastboundArrivalRate);
+        westArrivalRates.Add(westboundArrivalRate);
+
+        eastDepartureRates.Add(eastboundDepartureRate);
+        westDepartureRates.Add(westboundDepartureRate);
+        
+        
     }
 }

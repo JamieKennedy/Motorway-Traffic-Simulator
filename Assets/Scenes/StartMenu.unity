@@ -1933,6 +1933,7 @@ MonoBehaviour:
   politeness: {fileID: 1949037579}
   motorwaySetupPrefab: {fileID: 4793814199787654526, guid: cbfb15c66ef394547a3226f679f28199,
     type: 3}
+  motorwayManager: {fileID: 0}
   errorBox: {fileID: 1526269404}
   messages:
   - {fileID: 1941293306}

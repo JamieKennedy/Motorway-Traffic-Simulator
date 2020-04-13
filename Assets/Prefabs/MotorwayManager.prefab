@@ -55,6 +55,8 @@ MonoBehaviour:
   speedLimit: 0
   arrivalRate: 0
   politeness: 0
+  speedUnits: 
+  durationUnits: 
 --- !u!114 &7247172447557240044
 MonoBehaviour:
   m_ObjectHideFlags: 0

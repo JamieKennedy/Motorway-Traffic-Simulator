@@ -10,6 +10,7 @@ public class SpawnVehicle : MonoBehaviour {
     private Parameters motorwayParameters;
     private MotorwayStats motorwayStats;
     private ChangeLanes changeLanes;
+    private MotorwayTiming motorwayTiming;
 
     // Start is called before the first frame update
     void Start() {
@@ -17,6 +18,7 @@ public class SpawnVehicle : MonoBehaviour {
         motorwayManager = GameObject.FindWithTag("MotorwayManager");
         motorwayStats = motorwayManager.GetComponent<MotorwayStats>();
         motorwayParameters = motorwayManager.GetComponent<Parameters>();
+        motorwayTiming = motorwayManager.GetComponent<MotorwayTiming>();
     }
 
     
@@ -62,6 +64,7 @@ public class SpawnVehicle : MonoBehaviour {
         switch (laneProperties.dir) {
             case LaneProperties.direction.East:
                 motorwayStats.eastboundArrivalCount += 1;
+                motorwayStats.eastVehicleArrivals.Add(motorwayTiming.elapsedTime);
                 vehicleProperties.direction = LaneProperties.direction.East;
                 vehicleProperties.canMove = true;
                 vehicleProperties.currentLane = laneProperties.laneIndex;
@@ -70,6 +73,7 @@ public class SpawnVehicle : MonoBehaviour {
                 break;
             case LaneProperties.direction.West:
                 motorwayStats.westboundArrivalCount += 1;
+                motorwayStats.westVehicleArrivals.Add(motorwayTiming.elapsedTime);
                 vehicleProperties.direction = LaneProperties.direction.West;
                 vehicleProperties.canMove = true;
                 vehicleProperties.currentLane = laneProperties.laneIndex;
