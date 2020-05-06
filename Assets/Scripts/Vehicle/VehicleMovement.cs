@@ -51,18 +51,20 @@ public class VehicleMovement : MonoBehaviour {
         }
     }
 
+    // Vehicle A follows Vehicle B
     public float IDM(GameObject vehicleA, GameObject vehicleB) {
         vehicleAProperties = vehicleA.GetComponent<VehicleProperties>();
 
-        a = vehicleAProperties.maxAccel;
-        v = vehicleAProperties.currentVel;
-        v0 = vehicleAProperties.desiredSpeed;
-        delta = vehicleAProperties.freeAccExponent;
-        s0 = vehicleAProperties.jamDistance;
-        T = vehicleAProperties.desiredTimeGap;
-        b = vehicleAProperties.desiredDecel;
+        // Retrieve the values for the IDM
+        a = vehicleAProperties.maxAccel; // Max Acceleration
+        v = vehicleAProperties.currentVel; // Current velocity
+        v0 = vehicleAProperties.desiredSpeed; // Desired velocity
+        delta = vehicleAProperties.freeAccExponent; // Free Acceleration Exponent
+        s0 = vehicleAProperties.jamDistance; // Minimum Jam Distance
+        T = vehicleAProperties.desiredTimeGap; // Desired Time Gap
+        b = vehicleAProperties.desiredDecel; // Desired Deceleration
 
-
+        // Get the bumper to bumper distance between the two vehicles
         if (vehicleB != null) {
             vehicleBProperties = vehicleB.GetComponent<VehicleProperties>();
             switch (vehicleAProperties.direction) {
@@ -76,13 +78,14 @@ public class VehicleMovement : MonoBehaviour {
                         (vehicleB.transform.position.x + vehicleBProperties.vehicleWidth / 2f);
                     break;
             }
-
+            
             deltaV = vehicleAProperties.currentVel - vehicleBProperties.currentVel;
         } else {
             s = 600f;
             deltaV = 0f;
         }
         
+        // IDM equation
         return Convert.ToSingle(a * (1 - Math.Pow(v / v0, delta) - Math.Pow(sStar() / s, 2)));
     }
 

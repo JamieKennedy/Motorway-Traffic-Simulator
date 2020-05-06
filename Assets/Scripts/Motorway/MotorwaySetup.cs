@@ -22,8 +22,6 @@ public class MotorwaySetup : MonoBehaviour {
     private void onSceneLoaded(Scene scene, LoadSceneMode mode) {
         if (scene.name.Equals("MainSim")) {
             Setup();
-        } else {
-            //Destroy(gameObject);
         }
     }
 
@@ -45,9 +43,6 @@ public class MotorwaySetup : MonoBehaviour {
             motorwayManagerParameters.durationUnits = setupParameters.durationUnits;
             motorwayManagerParameters.speedUnits = setupParameters.speedUnits;
 
-            // sets assignments for vehicles class
-            //motorwayManager.GetComponent<Vehicles>().setAssignments();
-        
             // Adds the lane sprites to the scene
             motorwayManager.GetComponent<Lanes>().CreateLanes();
         

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UnderlineOnHover : MonoBehaviour {
 
-    [SerializeField] private TMP_Text text;
+    public TMP_Text text;
 
     public void onEnter() {
         text.text = "<u>" + text.text;

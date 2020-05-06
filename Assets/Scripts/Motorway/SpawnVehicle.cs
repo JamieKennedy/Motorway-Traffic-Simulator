@@ -63,6 +63,7 @@ public class SpawnVehicle : MonoBehaviour {
         
         switch (laneProperties.dir) {
             case LaneProperties.direction.East:
+                vehicle.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 motorwayStats.eastboundArrivalCount += 1;
                 motorwayStats.eastVehicleArrivals.Add(motorwayTiming.elapsedTime);
                 vehicleProperties.direction = LaneProperties.direction.East;
@@ -72,6 +73,7 @@ public class SpawnVehicle : MonoBehaviour {
                 laneProperties.vehicles.eastVehicles[laneProperties.laneIndex].Add(vehicle);
                 break;
             case LaneProperties.direction.West:
+                vehicle.transform.rotation = Quaternion.Euler(0f, 0f, 180f);
                 motorwayStats.westboundArrivalCount += 1;
                 motorwayStats.westVehicleArrivals.Add(motorwayTiming.elapsedTime);
                 vehicleProperties.direction = LaneProperties.direction.West;

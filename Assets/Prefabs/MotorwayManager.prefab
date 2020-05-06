@@ -92,6 +92,7 @@ MonoBehaviour:
     type: 3}
   laneInner: {fileID: 21300000, guid: e0290787d4c0a554eb1968a90ded279d, type: 3}
   laneEdgeOuter: {fileID: 21300000, guid: b6f9bd7aef7b6874e90e7fe19f978bdf, type: 3}
+  laneSingle: {fileID: 21300000, guid: 7abf69803c6dffc4fb1581e919b163b7, type: 3}
   eastLanes: []
   westLanes: []
 --- !u!114 &2434572533197057199
@@ -144,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc03292fe379bdf4a8ae3a408ff691c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  carryOverStats: {fileID: 0}
 --- !u!114 &-6730639797751917597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,3 +170,15 @@ MonoBehaviour:
   westboundVehicleNum: 0
   eastboundAverageSpeed: 0
   westboundAverageSpeed: 0
+  eastVehicleArrivals: []
+  westVehicleArrivals: []
+  eastVehicleDepartures: []
+  westVehicleDepartures: []
+  eastAverageSpeeds: []
+  westAverageSpeeds: []
+  eastVehicleNums: 
+  westVehicleNums: 
+  eastArrivalRates: []
+  westArrivalRates: []
+  eastDepartureRates: []
+  westDepartureRates: []

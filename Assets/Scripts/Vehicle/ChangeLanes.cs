@@ -7,6 +7,7 @@ public class ChangeLanes : MonoBehaviour {
     private VehicleProperties vehicleProperties;
     private Neighbours neighbours;
     private GameObject motorwayManager;
+    private Parameters parameters;
     private LaneProperties laneProperties;
     private VehicleMovement vehicleMovement;
     private Vehicles vehicles;
@@ -31,15 +32,20 @@ public class ChangeLanes : MonoBehaviour {
 
     public float laneChangeCoolDownTimer;
     
+    private float delay = 0.2f;
+    
     // Start is called before the first frame update
     void Start() {
         motorwayManager = GameObject.FindWithTag("MotorwayManager");
+        parameters = motorwayManager.GetComponent<Parameters>();
         vehicleProperties = gameObject.GetComponent<VehicleProperties>();
         neighbours = gameObject.GetComponent<Neighbours>();
         laneProperties = motorwayManager.GetComponent<LaneProperties>();
         vehicleMovement = gameObject.GetComponent<VehicleMovement>();
         vehicles = motorwayManager.GetComponent<Vehicles>();
         lanes = motorwayManager.GetComponent<Lanes>();
+
+        StartCoroutine(DoEveryX());
     }
 
     private void Update() {
@@ -50,33 +56,42 @@ public class ChangeLanes : MonoBehaviour {
         }
     }
 
-    void FixedUpdate() {
+    private IEnumerator DoEveryX() {
+        while (true) {
+            yield return new WaitForSeconds(delay);
+            if (parameters.lanesNum > 1) {
+                LaneChange();
+            }
+        }
+    }
+
+    private void LaneChange() {
         if (vehicleProperties.canMove && laneChangeCoolDownTimer <= 0 && !vehicleProperties.hasStopped) {
             laneChangeCoolDownTimer = vehicleProperties.laneChangeCoolDown;
             switch (vehicleProperties.direction) {
                 case LaneProperties.direction.East:
                     if (vehicleProperties.currentLane == lanes.eastLanes.Length - 1) {
-                        vehicleProperties.mobil = calc_MOBIL(-1);
+                        vehicleProperties.mobil = calcMOBIL(-1);
                         if (vehicleProperties.mobil >= vehicleProperties.changeThreshold) {
                             newLaneIndex = vehicleProperties.currentLane - 1;
                             laneChangeDir = -1;
                             changeLane(newLaneIndex, vehicleProperties.direction); 
                         } 
                     } else if (vehicleProperties.currentLane == 0) {
-                        vehicleProperties.mobil = calc_MOBIL(1);
+                        vehicleProperties.mobil = calcMOBIL(1);
                         if (vehicleProperties.mobil >= vehicleProperties.changeThreshold) {
                             newLaneIndex = vehicleProperties.currentLane + 1;
                             laneChangeDir = 1;
                             changeLane(newLaneIndex, vehicleProperties.direction);
                         }
                     } else {
-                        vehicleProperties.mobil = calc_MOBIL(-1);
+                        vehicleProperties.mobil = calcMOBIL(-1);
                         if (vehicleProperties.mobil >= vehicleProperties.changeThreshold) {
                             newLaneIndex = vehicleProperties.currentLane - 1;
                             laneChangeDir = -1;
                             changeLane(newLaneIndex, vehicleProperties.direction);
                         } else {
-                            vehicleProperties.mobil = calc_MOBIL(1);
+                            vehicleProperties.mobil = calcMOBIL(1);
                             if (vehicleProperties.mobil >= vehicleProperties.changeThreshold) {
                                 newLaneIndex = vehicleProperties.currentLane + 1;
                                 laneChangeDir = 1;
@@ -87,27 +102,27 @@ public class ChangeLanes : MonoBehaviour {
                     break;
                 case LaneProperties.direction.West:
                     if (vehicleProperties.currentLane == lanes.westLanes.Length - 1) {
-                        vehicleProperties.mobil = calc_MOBIL(1);
+                        vehicleProperties.mobil = calcMOBIL(1);
                         if (vehicleProperties.mobil >= vehicleProperties.changeThreshold) {
                             newLaneIndex = vehicleProperties.currentLane - 1;
                             laneChangeDir = 1;
                             changeLane(newLaneIndex, vehicleProperties.direction); 
                         } 
                     } else if (vehicleProperties.currentLane == 0) {
-                        vehicleProperties.mobil = calc_MOBIL(-1);
+                        vehicleProperties.mobil = calcMOBIL(-1);
                         if (vehicleProperties.mobil >= vehicleProperties.changeThreshold) {
                             newLaneIndex = vehicleProperties.currentLane + 1;
                             laneChangeDir = -1;
                             changeLane(newLaneIndex, vehicleProperties.direction);
                         }
                     } else {
-                        vehicleProperties.mobil = calc_MOBIL(-1);
+                        vehicleProperties.mobil = calcMOBIL(-1);
                         if (vehicleProperties.mobil >= vehicleProperties.changeThreshold) {
                             newLaneIndex = vehicleProperties.currentLane + 1;
                             laneChangeDir = -1;
                             changeLane(newLaneIndex, vehicleProperties.direction);
                         } else {
-                            vehicleProperties.mobil = calc_MOBIL(1);
+                            vehicleProperties.mobil = calcMOBIL(1);
                             if (vehicleProperties.mobil >= vehicleProperties.changeThreshold) {
                                 newLaneIndex = vehicleProperties.currentLane - 1;
                                 laneChangeDir = 1;
@@ -120,7 +135,7 @@ public class ChangeLanes : MonoBehaviour {
         }
     }
 
-    private float calc_MOBIL(int newLane) {
+    private float calcMOBIL(int newLane) {
         var currAccel = vehicleProperties.currentAccel;
         var facingDir = vehicleProperties.direction;
         getFrontAndRear(facingDir);
@@ -245,6 +260,7 @@ public class ChangeLanes : MonoBehaviour {
         var vehicleAFront = 0f;
         var vehicleBBack = 0f;
 
+        // Get bumper to bumper distance
         switch (vehicleAProperties.direction) {
             case LaneProperties.direction.East:
                 vehicleAFront = vehicleA.transform.position.x + (vehicleAProperties.vehicleWidth / 2f);
@@ -263,7 +279,7 @@ public class ChangeLanes : MonoBehaviour {
                 break;
         }
 
-
+        // return true if bumper to bumper distance is greater than jam distance
         return Math.Abs(vehicleBBack - vehicleAFront) > vehicleAProperties.jamDistance;
     }
 

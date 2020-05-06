@@ -32,41 +32,34 @@ public class SaveParameters : MonoBehaviour {
 
     public void Save() {
         if (GetSpeedLimit()) {
-            parameters.speedLimit = newSpeedLimit;
-            UpdateDesiredSpeed();
+            if (newSpeedLimit != parameters.speedLimit) {
+                parameters.speedLimit = newSpeedLimit;
+                UpdateDesiredSpeed();
+            }
         }
 
         if (GetArrivalRate()) {
-            parameters.arrivalRate = newArrivalRate;
-            spawner.SetProb();
+            if (newArrivalRate != parameters.arrivalRate) {
+                parameters.arrivalRate = newArrivalRate;
+                spawner.SetProb();
+            }
         }
         
         newPoliteness = politenessSlider.value;
-        parameters.politeness = newPoliteness;
-        UpdatePoliteness();
+        if (newPoliteness != parameters.politeness) {
+            parameters.politeness = newPoliteness;
+            UpdatePoliteness();
+        }
     }
 
     private bool GetSpeedLimit() {
-        switch (parameters.speedUnits) {
-            case "Mph":
-                try {
-                    newSpeedLimit = float.Parse(speedLimitInputText.text) / 2.237f;
-                    return true;
-                } catch{
-                    ErrorHandler(0);
-                    return false;
-                }
-            case "Kph":
-                try {
-                    newSpeedLimit = float.Parse(speedLimitInputText.text) / 3.6f;
-                    return true;
-                } catch {
-                    ErrorHandler(0);
-                    return false;
-                }
+        try {
+            newSpeedLimit = ConvertSpeed(float.Parse(speedLimitInputText.text));
+            return true;
+        } catch{
+            ErrorHandler(0);
+            return false;
         }
-
-        return false;
     }
     
     private bool GetArrivalRate() {
@@ -82,13 +75,18 @@ public class SaveParameters : MonoBehaviour {
     private void UpdateDesiredSpeed() {
         foreach (var lane in vehicles.eastVehicles) {
             foreach (var vehicle in lane) {
-                vehicle.GetComponent<VehicleProperties>().SetDesiredSpeed();
+                if (!vehicle.GetComponent<VehicleControls>().breakingDown && !vehicle.GetComponent<VehicleControls>().emergencyBraked) {
+                    vehicle.GetComponent<VehicleProperties>().SetDesiredSpeed();
+                }
             }
         }
         
         foreach (var lane in vehicles.westVehicles) {
             foreach (var vehicle in lane) {
-                vehicle.GetComponent<VehicleProperties>().SetDesiredSpeed();
+                if (!vehicle.GetComponent<VehicleControls>().breakingDown &&
+                    !vehicle.GetComponent<VehicleControls>().emergencyBraked) {
+                    vehicle.GetComponent<VehicleProperties>().SetDesiredSpeed();
+                }
             }
         }
     }
@@ -115,5 +113,16 @@ public class SaveParameters : MonoBehaviour {
         // enables error message box and the correct error message
         errorBox.SetActive(true);
         messages[errorIndex].gameObject.SetActive(true);
+    }
+    
+    private float ConvertSpeed(float speed) {
+        switch (parameters.speedUnits) {
+            case "Mph":
+                return speed / 2.237f;
+            case "Kph":
+                return speed / 3.6f;
+        }
+
+        return 0f;
     }
 }

@@ -27,11 +27,11 @@ public class BreakDown : MonoBehaviour {
                 buttonText.text = "Resume";
             } else {
                 gameObject.GetComponent<Image>().color = new Color32(69, 69, 255, 255);
-                buttonText.text = "Brake Down";
+                buttonText.text = "Break Down";
             }
         } else {
             gameObject.GetComponent<Image>().color = new Color32(69, 69, 255, 255);
-            buttonText.text = "Brake Down";
+            buttonText.text = "Break Down";
         }
     }
 

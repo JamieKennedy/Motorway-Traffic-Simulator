@@ -27,7 +27,7 @@ public class StartSim : MonoBehaviour {
     [SerializeField] private TMP_Text[] messages = new TMP_Text[4];
 
     public void StartSimulation() {
-        DeleteAndInstantiate();
+        InstantiateSetup();
 
         parameters = motorwaySetup.GetComponent<Parameters>();
         
@@ -42,7 +42,6 @@ public class StartSim : MonoBehaviour {
                         break;
                     } catch {
                         ErrorHandler(0);
-                        //Destroy(motorwaySetup);
                         return;
                     }
                 case "Minutes":
@@ -51,7 +50,6 @@ public class StartSim : MonoBehaviour {
                         break;
                     } catch {
                         ErrorHandler(0);
-                        //Destroy(motorwaySetup);
                         return;
                     }
                 case "Hours":
@@ -60,7 +58,6 @@ public class StartSim : MonoBehaviour {
                         break;
                     } catch {
                         ErrorHandler(0);
-                        //Destroy(motorwaySetup);
                         return;
                     }
             }
@@ -72,7 +69,6 @@ public class StartSim : MonoBehaviour {
             parameters.lanesNum = int.Parse(lanesNum.text);
         } catch {
             ErrorHandler(1);
-            //Destroy(motorwaySetup);
             return;
         }
 
@@ -87,7 +83,6 @@ public class StartSim : MonoBehaviour {
             }
         } catch {
             ErrorHandler(2);
-            //Destroy(motorwaySetup);
             return;
         }
         
@@ -95,7 +90,6 @@ public class StartSim : MonoBehaviour {
             parameters.arrivalRate = float.Parse(arrivalRate.text) / 60f;
         } catch {
             ErrorHandler(3);
-            //Destroy(motorwaySetup);
             return;
         }
 
@@ -105,7 +99,7 @@ public class StartSim : MonoBehaviour {
         SceneManager.LoadScene("MainSim");
     }
 
-    private void DeleteAndInstantiate() {
+    private void InstantiateSetup() {
         if(!GameObject.FindWithTag("MotorwaySetup")) {
             motorwaySetup = Instantiate(motorwaySetupPrefab, Vector3.zero, Quaternion.identity);
         } else {

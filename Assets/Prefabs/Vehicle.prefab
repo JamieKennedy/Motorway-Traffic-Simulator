@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -1179186948111105651}
   - component: {fileID: -1138266954330216939}
   - component: {fileID: 8651033275905602620}
+  - component: {fileID: -6599656035375347755}
   m_Layer: 0
   m_Name: Vehicle
   m_TagString: Untagged
@@ -33,7 +34,7 @@ RectTransform:
   m_GameObject: {fileID: 5343237895248331181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 5, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -152,6 +153,7 @@ MonoBehaviour:
   canMove: 0
   currentLane: 0
   direction: 0
+  hasStopped: 0
 --- !u!114 &-9152773235217761018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changingLane: 0
+  canChange: 0
   laneChangeCoolDownTimer: 0
 --- !u!61 &-1179186948111105651
 BoxCollider2D:
@@ -216,3 +219,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92476bcb840ba664f8d8c6f90ebf25f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  breakingDown: 0
+  emergencyBraked: 0
+--- !u!114 &-6599656035375347755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5343237895248331181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec2b213800feb249be95b5df6a658d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colours:
+  - {fileID: 21300000, guid: 2648ae1a3dc1c89469f953102ba50685, type: 3}
+  - {fileID: 21300000, guid: e86593a83aedd6245ab9f174cb28eeb6, type: 3}
+  - {fileID: 21300000, guid: 8ebd4cf7c17b9e54cb0c28689f6a5552, type: 3}
+  - {fileID: 21300000, guid: 4622d89a0995d0645abb2e924b765cdd, type: 3}
+  - {fileID: 21300000, guid: 0619d6b02b877624fab63f31ab3a213c, type: 3}
+  - {fileID: 21300000, guid: 698834960e9b89a42b80602d7d2517e3, type: 3}
+  - {fileID: 21300000, guid: d9520a233406ddc4b8cd5964fcdeab26, type: 3}
+  coloursHighlighted:
+  - {fileID: 21300000, guid: 4eb0baf750b3ec34f918f496dd5e8fcd, type: 3}
+  - {fileID: 21300000, guid: 0fdb3aa28ab8a0e4099240f28c9418f3, type: 3}
+  - {fileID: 21300000, guid: 93c4216ce054931409018ec1f3e1b37e, type: 3}
+  - {fileID: 21300000, guid: 14242e507d455cf4c84d7405b271dc85, type: 3}
+  - {fileID: 21300000, guid: d0cc8f51eae995b4b8e5e193a442b780, type: 3}
+  - {fileID: 21300000, guid: 8e7c356a765809c49abd88ecf7c6427e, type: 3}
+  - {fileID: 21300000, guid: e08198fedb96c4e4bace44cbeeac89ff, type: 3}

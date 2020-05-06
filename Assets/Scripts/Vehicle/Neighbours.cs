@@ -8,11 +8,14 @@ public class Neighbours : MonoBehaviour {
     private VehicleProperties vehicleProperties;
     private Lanes lanes;
     private GameObject motorwayManager;
+    private Parameters parameters;
     private Vehicles vehicles;
 
     private List<GameObject> allVehicles;
     private List<GameObject> possibleVehicles;
     private GameObject closestVehicle;
+
+    private float delay = 0.2f;
     
     public GameObject[] neighbours = new GameObject[6];
     // 0 North East
@@ -25,12 +28,22 @@ public class Neighbours : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         motorwayManager = GameObject.FindWithTag("MotorwayManager");
+        parameters = motorwayManager.GetComponent<Parameters>();
         vehicleProperties = gameObject.GetComponent<VehicleProperties>();
         lanes = motorwayManager.GetComponent<Lanes>();
         vehicles = motorwayManager.GetComponent<Vehicles>();
+
+        StartCoroutine(DoEveryX());
     }
 
-    private void FixedUpdate() {
+    private IEnumerator DoEveryX() {
+        while (true) {
+            yield return new WaitForSeconds(delay);
+            GetNeighbours();
+        }
+    }
+
+    private void GetNeighbours() {
         if (vehicleProperties.canMove) {
             switch (vehicleProperties.direction) {
                 case LaneProperties.direction.East:
@@ -96,31 +109,35 @@ public class Neighbours : MonoBehaviour {
     private GameObject getNorthEast(LaneProperties.direction dir, int lane) {
         closestVehicle = null;
         possibleVehicles = new List<GameObject>();
-        
-        switch (dir) {
-            case LaneProperties.direction.East:
-                allVehicles = vehicles.eastVehicles[lane + 1];
-                break;
-            case LaneProperties.direction.West:
-                allVehicles = vehicles.westVehicles[lane - 1];
-                break;
-        }
-        
-        foreach (var vehicle in allVehicles) {
-            if (vehicle.transform.position.x >= gameObject.transform.position.x) {
-                possibleVehicles.Add(vehicle);
-            }
-        }
 
-        if (possibleVehicles.Count > 0) {
-            closestVehicle = possibleVehicles[0];
-            for(var i = 1; i < possibleVehicles.Count; i++) {
-                if (possibleVehicles[i].transform.position.x < closestVehicle.transform.position.x) {
-                    closestVehicle = possibleVehicles[i];
+        // Gets list of all vehicles
+        if (parameters.lanesNum > 1) {
+            switch (dir) {
+                case LaneProperties.direction.East:
+                    allVehicles = vehicles.eastVehicles[lane + 1];
+                    break;
+                case LaneProperties.direction.West:
+                    allVehicles = vehicles.westVehicles[lane - 1];
+                    break;
+            }
+            
+            // Finds all vehicles with x >= to itself
+            foreach (var vehicle in allVehicles) {
+                if (vehicle.transform.position.x >= gameObject.transform.position.x) {
+                    possibleVehicles.Add(vehicle);
+                }
+            }
+
+            // Finds the closest of the vehicles with x >= than itself
+            if (possibleVehicles.Count > 0) {
+                closestVehicle = possibleVehicles[0];
+                for(var i = 1; i < possibleVehicles.Count; i++) {
+                    if (possibleVehicles[i].transform.position.x < closestVehicle.transform.position.x) {
+                        closestVehicle = possibleVehicles[i];
+                    }
                 }
             }
         }
-        
         return closestVehicle;
     }
     
@@ -158,29 +175,31 @@ public class Neighbours : MonoBehaviour {
     private GameObject getSouthEast(LaneProperties.direction dir, int lane) {
         closestVehicle = null;
         possibleVehicles = new List<GameObject>();
-        
-        switch (dir) {
-            case LaneProperties.direction.East:
-                allVehicles = vehicles.eastVehicles[lane - 1];
-                break;
-            case LaneProperties.direction.West:
-                allVehicles = vehicles.westVehicles[lane + 1];
-                break;
-        }
 
-        foreach (var vehicle in allVehicles) {
-            if (vehicle.transform.position.x >= gameObject.transform.position.x) {
-                possibleVehicles.Add(vehicle);
+        if (parameters.lanesNum > 1) {
+            switch (dir) {
+                case LaneProperties.direction.East:
+                    allVehicles = vehicles.eastVehicles[lane - 1];
+                    break;
+                case LaneProperties.direction.West:
+                    allVehicles = vehicles.westVehicles[lane + 1];
+                    break;
             }
-        }
 
-        if (possibleVehicles.Count > 0) {
-            closestVehicle = possibleVehicles[0];
-            for (var i = 1; i < possibleVehicles.Count; i++) {
-                if (possibleVehicles[i].transform.position.x < closestVehicle.transform.position.x) {
-                    closestVehicle = possibleVehicles[i];
+            foreach (var vehicle in allVehicles) {
+                if (vehicle.transform.position.x >= gameObject.transform.position.x) {
+                    possibleVehicles.Add(vehicle);
                 }
             }
+
+            if (possibleVehicles.Count > 0) {
+                closestVehicle = possibleVehicles[0];
+                for (var i = 1; i < possibleVehicles.Count; i++) {
+                    if (possibleVehicles[i].transform.position.x < closestVehicle.transform.position.x) {
+                        closestVehicle = possibleVehicles[i];
+                    }
+                }
+            } 
         }
         
         return closestVehicle;
@@ -189,31 +208,33 @@ public class Neighbours : MonoBehaviour {
     private GameObject getSouthWest(LaneProperties.direction dir, int lane) {
         closestVehicle = null;
         possibleVehicles = new List<GameObject>();
-        
-        switch (dir) {
-            case LaneProperties.direction.East:
-                allVehicles = vehicles.eastVehicles[lane - 1];
-                break;
-            case LaneProperties.direction.West:
-                allVehicles = vehicles.westVehicles[lane + 1];
-                break;
-        }
 
-        foreach (var vehicle in allVehicles) {
-            if (vehicle.transform.position.x < gameObject.transform.position.x) {
-                possibleVehicles.Add(vehicle);
+        if (parameters.lanesNum > 1) {
+            switch (dir) {
+                case LaneProperties.direction.East:
+                    allVehicles = vehicles.eastVehicles[lane - 1];
+                    break;
+                case LaneProperties.direction.West:
+                    allVehicles = vehicles.westVehicles[lane + 1];
+                    break;
             }
-        }
 
-        if (possibleVehicles.Count > 0) {
-            closestVehicle = possibleVehicles[0];
-            for (var i = 1; i < possibleVehicles.Count; i++) {
-                if (possibleVehicles[i].transform.position.x > closestVehicle.transform.position.x) {
-                    closestVehicle = possibleVehicles[i];
+            foreach (var vehicle in allVehicles) {
+                if (vehicle.transform.position.x < gameObject.transform.position.x) {
+                    possibleVehicles.Add(vehicle);
+                }
+            }
+
+            if (possibleVehicles.Count > 0) {
+                closestVehicle = possibleVehicles[0];
+                for (var i = 1; i < possibleVehicles.Count; i++) {
+                    if (possibleVehicles[i].transform.position.x > closestVehicle.transform.position.x) {
+                        closestVehicle = possibleVehicles[i];
+                    }
                 }
             }
         }
-
+        
         return closestVehicle;
     }
     
@@ -251,27 +272,29 @@ public class Neighbours : MonoBehaviour {
     private GameObject getNorthWest(LaneProperties.direction dir, int lane) {
         closestVehicle = null;
         possibleVehicles = new List<GameObject>();
-        
-        switch (dir) {
-            case LaneProperties.direction.East:
-                allVehicles = vehicles.eastVehicles[lane + 1];
-                break;
-            case LaneProperties.direction.West:
-                allVehicles = vehicles.westVehicles[lane - 1];
-                break;
-        }
-        
-        foreach (var vehicle in allVehicles) {
-            if (vehicle.transform.position.x < gameObject.transform.position.x) {
-                possibleVehicles.Add(vehicle);
-            }
-        }
 
-        if (possibleVehicles.Count > 0) {
-            closestVehicle = possibleVehicles[0];
-            for(var i = 1; i < possibleVehicles.Count; i++) {
-                if (possibleVehicles[i].transform.position.x > closestVehicle.transform.position.x) {
-                    closestVehicle = possibleVehicles[i];
+        if (parameters.lanesNum > 1) {
+            switch (dir) {
+                case LaneProperties.direction.East:
+                    allVehicles = vehicles.eastVehicles[lane + 1];
+                    break;
+                case LaneProperties.direction.West:
+                    allVehicles = vehicles.westVehicles[lane - 1];
+                    break;
+            }
+        
+            foreach (var vehicle in allVehicles) {
+                if (vehicle.transform.position.x < gameObject.transform.position.x) {
+                    possibleVehicles.Add(vehicle);
+                }
+            }
+
+            if (possibleVehicles.Count > 0) {
+                closestVehicle = possibleVehicles[0];
+                for(var i = 1; i < possibleVehicles.Count; i++) {
+                    if (possibleVehicles[i].transform.position.x > closestVehicle.transform.position.x) {
+                        closestVehicle = possibleVehicles[i];
+                    }
                 }
             }
         }

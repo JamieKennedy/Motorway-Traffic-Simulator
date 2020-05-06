@@ -65,6 +65,7 @@ public class FinalStats : MonoBehaviour {
 
         eastAverageDepartureRate = AverageFloatList(eastDepartureRates);
         westAverageDepartureRate = AverageFloatList(westDepartureRates);
+        
         eastAverageSpeed = AverageFloatList(eastAverageSpeeds);
         westAverageSpeed = AverageFloatList(westAverageSpeeds);
 

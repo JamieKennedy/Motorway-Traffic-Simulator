@@ -33,14 +33,8 @@ public class VehicleProperties : MonoBehaviour {
     void Start() {
         motorwayManager = GameObject.FindWithTag("MotorwayManager");
         motorwayParameters = motorwayManager.GetComponent<Parameters>();
-
         vehicleWidth = gameObject.GetComponent<RectTransform>().rect.width * gameObject.transform.localScale.x;
-
-        //currentVel = Random.Range(motorwayParameters.speedLimit * 0.8f, motorwayParameters.speedLimit * 1.2f);
-        //currentVel = 0f;
         currentAccel = 0f;
-        changeThreshold = 0.5f;
-        laneChangeCoolDown = 10f;
         hasStopped = false;
     }
 
@@ -52,8 +46,11 @@ public class VehicleProperties : MonoBehaviour {
         SetMaxAccel();
         SetDesiredDecel();
         SetPoliteness();
+        SetChangeThreshold();
+        SetLaneChangeCooldown();
     }
 
+    // Box-Muller Transformation
     private float NormalDist(float mu, float sigma) {
         var u1 = Random.Range(0f, 1f);
         var u2 = Random.Range(0f, 1f);
@@ -65,6 +62,9 @@ public class VehicleProperties : MonoBehaviour {
 
     public void SetDesiredSpeed() {
         desiredSpeed = NormalDist(motorwayParameters.speedLimit, motorwayParameters.speedLimit * 0.1f);
+        while (desiredSpeed <= 0) {
+            desiredSpeed = NormalDist(motorwayParameters.speedLimit, motorwayParameters.speedLimit * 0.1f);
+        }
         desiredSpeedPerm = desiredSpeed;
     }
 
@@ -74,10 +74,13 @@ public class VehicleProperties : MonoBehaviour {
 
     public void SetDesiredTimeGap() {
         desiredTimeGap = NormalDist(1f, 0.2f);
+        while (desiredTimeGap <= 0) {
+            desiredTimeGap = NormalDist(0.5f, 0.2f);
+        }
     }
 
     public void SetJamDistance() {
-        jamDistance = NormalDist(10f, 0.2f) + vehicleWidth / 2;
+        jamDistance = NormalDist(10f, 2f) + vehicleWidth / 2;
     }
 
     public void SetMaxAccel() {
@@ -91,5 +94,16 @@ public class VehicleProperties : MonoBehaviour {
     public void SetPoliteness() {
         politeness = NormalDist((motorwayParameters.politeness) / 100,
             ((motorwayParameters.politeness) / 100) * 0.1f);
+    }
+
+    public void SetChangeThreshold() {
+        changeThreshold = NormalDist(0.5f, 0.05f);
+        while (changeThreshold <= 0) {
+            changeThreshold = NormalDist(0.5f, 0.05f);
+        }
+    }
+
+    public void SetLaneChangeCooldown() {
+        laneChangeCoolDown = NormalDist(10f, 2f);
     }
 }

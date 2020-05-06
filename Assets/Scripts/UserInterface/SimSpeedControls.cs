@@ -34,12 +34,14 @@ public class SimSpeedControls : MonoBehaviour {
     }
 
     public void ChangeSpeed() {
+        // Increment the speed
         if (simSpeedIndex < speeds.Length - 1) {
             simSpeedIndex += 1;
         } else {
             simSpeedIndex = 0;
         }
 
+        // Set the timescale and the text
         Time.timeScale = speeds[simSpeedIndex];
         speedText.text = speeds[simSpeedIndex].ToString() + "X";
     }
